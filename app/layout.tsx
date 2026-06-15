@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import ClientProviders from "@/components/ClientProviders";
+import { ThemeProvider } from "@/contexts/ThemeContext";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const geist = Geist({ 
   variable: "--font-geist", 
@@ -29,10 +30,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=yes" />
       </head>
-      <body className={`${geist.variable} ${geistMono.variable} font-sans antialiased`}>
-        <ClientProviders>
+      <body 
+        className={`${geist.variable} ${geistMono.variable} font-sans antialiased`}
+        suppressHydrationWarning
+      >
+        <ThemeProvider>
           {children}
-        </ClientProviders>
+          <ThemeToggle />
+        </ThemeProvider>
       </body>
     </html>
   );

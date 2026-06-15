@@ -66,157 +66,157 @@
     scroll-behavior: auto;
   }
 
-  /* Dark theme (default) */
+  /* Light theme is now DEFAULT */
   body {
-    background-color: var(--color-dark-background);
-    color: var(--color-dark-text-primary);
+    background-color: var(--color-light-background);
+    color: var(--color-light-text-primary);
     transition: background-color 0.3s, color 0.3s;
   }
 
-  /* Light theme */
-  body.light {
-    background-color: var(--color-light-background);
-    color: var(--color-light-text-primary);
+  /* Dark theme - only when body has .dark class */
+  body.dark {
+    background-color: var(--color-dark-background);
+    color: var(--color-dark-text-primary);
   }
 }
 
 @layer components {
   /* Card component */
   .card {
-    background-color: var(--color-dark-card);
-    border: 1px solid var(--color-dark-border);
+    background-color: var(--color-light-card);
+    border: 1px solid var(--color-light-border);
     border-radius: 1rem;
     transition: all 0.3s;
   }
   
-  body.light .card {
-    background-color: var(--color-light-card);
-    border-color: var(--color-light-border);
+  body.dark .card {
+    background-color: var(--color-dark-card);
+    border-color: var(--color-dark-border);
   }
   
   /* Surface component */
   .surface {
-    background-color: var(--color-dark-surface);
+    background-color: var(--color-light-surface);
   }
   
-  body.light .surface {
-    background-color: var(--color-light-surface);
+  body.dark .surface {
+    background-color: var(--color-dark-surface);
   }
   
   /* Text colors */
   .text-primary {
-    color: var(--color-dark-text-primary);
-  }
-  
-  body.light .text-primary {
     color: var(--color-light-text-primary);
   }
   
-  .text-secondary {
-    color: var(--color-dark-text-secondary);
+  body.dark .text-primary {
+    color: var(--color-dark-text-primary);
   }
   
-  body.light .text-secondary {
+  .text-secondary {
     color: var(--color-light-text-secondary);
   }
   
-  .text-tertiary {
-    color: var(--color-dark-text-tertiary);
+  body.dark .text-secondary {
+    color: var(--color-dark-text-secondary);
   }
   
-  body.light .text-tertiary {
+  .text-tertiary {
     color: var(--color-light-text-tertiary);
   }
   
-  .text-cards {
-    color: var(--color-dark-text-cards);
+  body.dark .text-tertiary {
+    color: var(--color-dark-text-tertiary);
   }
   
-  body.light .text-cards {
+  .text-cards {
     color: var(--color-light-text-cards);
+  }
+  
+  body.dark .text-cards {
+    color: var(--color-dark-text-cards);
   }
   
   /* Status colors */
   .revenue {
-    color: var(--color-dark-revenue);
-  }
-  
-  body.light .revenue {
     color: var(--color-light-revenue);
   }
   
-  .expense {
-    color: var(--color-dark-expense);
+  body.dark .revenue {
+    color: var(--color-dark-revenue);
   }
   
-  body.light .expense {
+  .expense {
     color: var(--color-light-expense);
   }
   
-  .balance {
-    color: var(--color-dark-balance);
+  body.dark .expense {
+    color: var(--color-dark-expense);
   }
   
-  body.light .balance {
+  .balance {
     color: var(--color-light-balance);
   }
   
-  .success {
-    color: var(--color-dark-success);
+  body.dark .balance {
+    color: var(--color-dark-balance);
   }
   
-  body.light .success {
+  .success {
     color: var(--color-light-success);
   }
   
-  .error {
-    color: var(--color-dark-error);
+  body.dark .success {
+    color: var(--color-dark-success);
   }
   
-  body.light .error {
+  .error {
     color: var(--color-light-error);
   }
   
-  .warning {
-    color: var(--color-dark-warning);
+  body.dark .error {
+    color: var(--color-dark-error);
   }
   
-  body.light .warning {
+  .warning {
     color: var(--color-light-warning);
   }
   
-  .info {
-    color: var(--color-dark-info);
+  body.dark .warning {
+    color: var(--color-dark-warning);
   }
   
-  body.light .info {
+  .info {
     color: var(--color-light-info);
+  }
+  
+  body.dark .info {
+    color: var(--color-dark-info);
   }
   
   /* Progress bar */
   .progress-bg {
-    background-color: var(--color-dark-progress-bg);
-  }
-  
-  body.light .progress-bg {
     background-color: var(--color-light-progress-bg);
   }
   
-  .progress-fill {
-    background-color: var(--color-dark-progress-fill);
+  body.dark .progress-bg {
+    background-color: var(--color-dark-progress-bg);
   }
   
-  body.light .progress-fill {
+  .progress-fill {
     background-color: var(--color-light-progress-fill);
+  }
+  
+  body.dark .progress-fill {
+    background-color: var(--color-dark-progress-fill);
   }
   
   /* Border */
   .border-custom {
-    border-color: var(--color-dark-border);
+    border-color: var(--color-light-border);
   }
   
-  body.light .border-custom {
-    border-color: var(--color-light-border);
+  body.dark .border-custom {
+    border-color: var(--color-dark-border);
   }
   
   /* Gradient backgrounds */
@@ -248,33 +248,33 @@
   
   .btn-secondary {
     background-color: transparent;
-    border: 1px solid var(--color-dark-border);
-    color: var(--color-dark-text-primary);
+    border: 1px solid var(--color-light-border);
+    color: var(--color-light-text-primary);
     font-weight: 600;
     padding: 0.625rem 1.5rem;
     border-radius: 0.75rem;
     transition: all 0.2s;
   }
   
-  body.light .btn-secondary {
-    border-color: var(--color-light-border);
-    color: var(--color-light-text-primary);
+  body.dark .btn-secondary {
+    border-color: var(--color-dark-border);
+    color: var(--color-dark-text-primary);
   }
   
   /* Input styles */
   .input {
-    background-color: var(--color-dark-surface);
-    border: 1px solid var(--color-dark-border);
-    color: var(--color-dark-text-primary);
+    background-color: var(--color-light-surface);
+    border: 1px solid var(--color-light-border);
+    color: var(--color-light-text-primary);
     border-radius: 0.75rem;
     padding: 0.625rem 1rem;
     transition: all 0.2s;
   }
   
-  body.light .input {
-    background-color: var(--color-light-surface);
-    border-color: var(--color-light-border);
-    color: var(--color-light-text-primary);
+  body.dark .input {
+    background-color: var(--color-dark-surface);
+    border-color: var(--color-dark-border);
+    color: var(--color-dark-text-primary);
   }
   
   .input:focus {
@@ -340,32 +340,33 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-dark-background);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--color-primary);
-  border-radius: 3px;
-}
-
-/* Light mode scrollbar */
-body.light::-webkit-scrollbar-track {
   background: var(--color-light-border);
 }
 
-body.light::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
   background: var(--color-primary-dark);
+  border-radius: 3px;
+}
+
+/* Dark mode scrollbar */
+body.dark::-webkit-scrollbar-track {
+  background: var(--color-dark-background);
+}
+
+body.dark::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
 }
 
 /* Firefox scrollbar */
 * {
   scrollbar-width: thin;
+  scrollbar-color: var(--color-primary-dark) var(--color-light-border);
+}
+
+body.dark {
   scrollbar-color: var(--color-primary) var(--color-dark-background);
 }
 
-body.light {
-  scrollbar-color: var(--color-primary-dark) var(--color-light-border);
-}
 /* Hide scrollbar for Chrome, Safari and Opera */
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
@@ -373,10 +374,9 @@ body.light {
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .scrollbar-hide {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
-
 
 /* Simple CSS Animations - Lightweight and Smooth */
 
@@ -502,7 +502,6 @@ body.light {
   }
 }
 
-
 /* Marquee animations for auto-moving rows */
 @keyframes marquee-left {
   0% {
@@ -546,14 +545,6 @@ body.light {
   }
 }
 
-/* Respect user motion preferences */
-@media (prefers-reduced-motion: reduce) {
-  .animate-marquee-left,
-  .animate-marquee-right {
-    animation: none;
-  }
-}
-
 /* Scale animation for sparkle icon */
 @keyframes scale-in {
   from {
@@ -568,40 +559,4 @@ body.light {
 
 .animate-scale-in {
   animation: scale-in 0.5s ease-out forwards;
-}
-
-/* Respect user motion preferences */
-@media (prefers-reduced-motion: reduce) {
-  .animate-fade-in,
-  .animate-fade-in-up,
-  .animate-scale-in {
-    animation: none;
-    opacity: 1;
-    transform: none;
-  }
-}
-
-/* Fade up animation */
-@keyframes fade-in-up {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-fade-in-up {
-  animation: fade-in-up 0.5s ease-out forwards;
-}
-
-/* Respect user motion preferences */
-@media (prefers-reduced-motion: reduce) {
-  .animate-fade-in-up {
-    animation: none;
-    opacity: 1;
-    transform: none;
-  }
 }

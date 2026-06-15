@@ -8,6 +8,7 @@ const navLinks = [
   { label: "Features", href: "#features" },
   { label: "How It Works", href: "#how-it-works" },
   { label: "Why KoFund", href: "#comparison" },
+  { label: "Pricing", href: "#pricing" },
   { label: "FAQ", href: "#faq" },
   { label: "About", href: "/about" },
 ];
@@ -15,7 +16,7 @@ const navLinks = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [dark, setDark] = useState(true);
+  const [isDark, setIsDark] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [visible, setVisible] = useState(true);
@@ -44,10 +45,10 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll, { passive: true });
 
     const observer = new MutationObserver(() => {
-      setDark(!document.body.classList.contains("light"));
+      setIsDark(document.body.classList.contains("dark"));
     });
     observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
-    setDark(!document.body.classList.contains("light"));
+    setIsDark(document.body.classList.contains("dark"));
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
@@ -60,7 +61,7 @@ export default function Navbar() {
       <div 
         className="rounded-xl p-1.5 flex items-center justify-center shadow-sm transition-all duration-200 hover:scale-105"
         style={{ 
-          backgroundColor: mounted ? (dark ? "#00E3C3" : "#00BFA6") : "#00E3C3"
+          backgroundColor: "var(--color-primary)",
         }}
       >
         <svg
@@ -87,7 +88,7 @@ export default function Navbar() {
       <div>
         <span 
           className="font-bold text-xl tracking-tight"
-          style={{ color: mounted ? (dark ? "#fff" : "#0f172a") : "#fff" }}
+          style={{ color: isDark ? "var(--color-dark-text-primary)" : "var(--color-light-text-primary)" }}
         >
           KoFund
         </span>
@@ -106,10 +107,10 @@ export default function Navbar() {
         }`}
         style={{
           background: scrolled
-            ? dark ? "rgba(11,14,17,0.95)" : "rgba(248,250,252,0.95)"
+            ? isDark ? "rgba(11,14,17,0.95)" : "rgba(248,250,252,0.95)"
             : "transparent",
           borderBottom: scrolled
-            ? `1px solid ${dark ? "#1E2530" : "#e2e8f0"}`
+            ? `1px solid ${isDark ? "#1E2530" : "#e2e8f0"}`
             : "1px solid transparent",
           boxShadow: scrolled && visible ? "0 4px 20px rgba(0,0,0,0.1)" : "none",
         }}
@@ -124,8 +125,8 @@ export default function Navbar() {
               <Link
                 key={link.label}
                 href={link.href}
-                className="text-sm transition-colors hover:text-[#00E3C3]"
-                style={{ color: dark ? "#6B7280" : "#475569" }}
+                className="text-sm transition-colors hover:text-primary"
+                style={{ color: isDark ? "#6B7280" : "#475569" }}
               >
                 {link.label}
               </Link>
@@ -136,15 +137,15 @@ export default function Navbar() {
             <Link
               href="https://kofund-153ba.web.app"
               target="_blank"
-              className="text-sm transition-colors hover:text-[#00E3C3]"
-              style={{ color: dark ? "#6B7280" : "#475569" }}
+              className="text-sm transition-colors hover:text-primary"
+              style={{ color: isDark ? "#6B7280" : "#475569" }}
             >
               Web App
             </Link>
             <Link
               href="https://drive.google.com/file/d/1jQEGYyfAZjnt9L8PPqYpANaizGaq0gq0/view?usp=sharing"
               target="_blank"
-              className="text-sm font-semibold px-4 py-2 rounded-lg bg-[#00E3C3] text-[#0B0E11] hover:bg-[#00BFA6] transition-colors whitespace-nowrap"
+              className="text-sm font-semibold px-4 py-2 rounded-lg bg-primary text-[#0B0E11] hover:bg-primary-dark transition-colors whitespace-nowrap"
             >
               Download App
             </Link>
@@ -153,7 +154,7 @@ export default function Navbar() {
           <button
             className="flex md:hidden"
             onClick={() => setMenuOpen(!menuOpen)}
-            style={{ color: dark ? "#fff" : "#0f172a" }}
+            style={{ color: isDark ? "#fff" : "#0f172a" }}
           >
             {menuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
@@ -163,8 +164,8 @@ export default function Navbar() {
           <div
             className="md:hidden px-4 pt-2 pb-6 flex flex-col gap-4 border-t"
             style={{
-              background: dark ? "#13181E" : "#f1f5f9",
-              borderColor: dark ? "#1E2530" : "#e2e8f0",
+              background: isDark ? "#13181E" : "#f1f5f9",
+              borderColor: isDark ? "#1E2530" : "#e2e8f0",
             }}
           >
             {navLinks.map((link) => (
@@ -172,8 +173,8 @@ export default function Navbar() {
                 key={link.label}
                 href={link.href}
                 onClick={() => setMenuOpen(false)}
-                className="text-sm transition-colors hover:text-[#00E3C3]"
-                style={{ color: dark ? "#6B7280" : "#475569" }}
+                className="text-sm transition-colors hover:text-primary"
+                style={{ color: isDark ? "#6B7280" : "#475569" }}
               >
                 {link.label}
               </Link>
@@ -182,14 +183,14 @@ export default function Navbar() {
               href="https://kofund-153ba.web.app"
               target="_blank"
               className="text-sm"
-              style={{ color: dark ? "#6B7280" : "#475569" }}
+              style={{ color: isDark ? "#6B7280" : "#475569" }}
             >
               Web App
             </Link>
             <Link
               href="https://drive.google.com/file/d/1jQEGYyfAZjnt9L8PPqYpANaizGaq0gq0/view?usp=sharing"
               target="_blank"
-              className="text-sm font-semibold px-4 py-3 rounded-lg bg-[#00E3C3] text-[#0B0E11] text-center"
+              className="text-sm font-semibold px-4 py-3 rounded-lg bg-primary text-[#0B0E11] text-center"
             >
               Download App
             </Link>

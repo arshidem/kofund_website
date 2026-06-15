@@ -5,16 +5,16 @@ import { useEffect, useState } from "react";
 import { Mail, Phone, MessageCircle } from "lucide-react";
 
 export default function Footer() {
-  const [dark, setDark] = useState(true);
+  const [isDark, setIsDark] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
     const observer = new MutationObserver(() => {
-      setDark(!document.body.classList.contains("light"));
+      setIsDark(document.body.classList.contains("dark"));
     });
     observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
-    setDark(!document.body.classList.contains("light"));
+    setIsDark(document.body.classList.contains("dark"));
     return () => observer.disconnect();
   }, []);
 
@@ -80,10 +80,23 @@ export default function Footer() {
     },
   ];
 
+  if (!mounted) {
+    return (
+      <footer className="border-t py-12 px-4 sm:px-6 bg-[#F8F9FA] border-[#E9ECEF]">
+        <div className="max-w-6xl mx-auto">
+          <div className="animate-pulse">Loading...</div>
+        </div>
+      </footer>
+    );
+  }
+
   return (
     <footer 
-      className="border-t py-12 px-4 sm:px-6"
-      style={{ background: dark ? "#0B0E11" : "#ffffff", borderColor: dark ? "#1E2530" : "#e2e8f0" }}
+      className="border-t py-12 px-4 sm:px-6 transition-colors duration-300"
+      style={{ 
+        background: isDark ? "var(--color-dark-background)" : "var(--color-light-background)", 
+        borderColor: isDark ? "var(--color-dark-border)" : "var(--color-light-border)" 
+      }}
     >
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
@@ -119,12 +132,12 @@ export default function Footer() {
               </div>
               <span 
                 className="font-bold text-xl tracking-tight"
-                style={{ color: dark ? "var(--color-dark-text-primary)" : "var(--color-light-text-primary)" }}
+                style={{ color: isDark ? "var(--color-dark-text-primary)" : "var(--color-light-text-primary)" }}
               >
                 KoFund
               </span>
             </div>
-            <p className="text-sm mt-2" style={{ color: dark ? "#6B7280" : "#64748b" }}>
+            <p className="text-sm mt-2" style={{ color: isDark ? "#6B7280" : "#64748b" }}>
               Simplify Community Finances
             </p>
           </div>
@@ -132,7 +145,7 @@ export default function Footer() {
           {/* Links */}
           {footerLinks.map((section) => (
             <div key={section.title}>
-              <h4 className="font-semibold mb-3 text-sm" style={{ color: dark ? "#ffffff" : "#0f172a" }}>
+              <h4 className="font-semibold mb-3 text-sm" style={{ color: isDark ? "#ffffff" : "#0f172a" }}>
                 {section.title}
               </h4>
               <ul className="space-y-2">
@@ -141,7 +154,7 @@ export default function Footer() {
                     <Link 
                       href={link.href}
                       className="text-sm hover:text-primary transition-colors"
-                      style={{ color: dark ? "#6B7280" : "#64748b" }}
+                      style={{ color: isDark ? "#6B7280" : "#64748b" }}
                     >
                       {link.name}
                     </Link>
@@ -153,7 +166,7 @@ export default function Footer() {
 
           {/* Contact Section */}
           <div>
-            <h4 className="font-semibold mb-3 text-sm" style={{ color: dark ? "#ffffff" : "#0f172a" }}>
+            <h4 className="font-semibold mb-3 text-sm" style={{ color: isDark ? "#ffffff" : "#0f172a" }}>
               Contact Us
             </h4>
             <ul className="space-y-3">
@@ -164,7 +177,7 @@ export default function Footer() {
                     target={method.label === "Instagram" ? "_blank" : undefined}
                     rel={method.label === "Instagram" ? "noopener noreferrer" : undefined}
                     className="flex items-center gap-3 text-sm hover:text-primary transition-colors group"
-                    style={{ color: dark ? "#6B7280" : "#64748b" }}
+                    style={{ color: isDark ? "#6B7280" : "#64748b" }}
                   >
                     <span className="transition-transform group-hover:scale-110 text-primary">
                       {method.icon}
@@ -183,7 +196,10 @@ export default function Footer() {
         {/* Copyright */}
         <div 
           className="pt-8 text-center text-xs border-t"
-          style={{ borderColor: dark ? "#1E2530" : "#e2e8f0", color: dark ? "#6B7280" : "#64748b" }}
+          style={{ 
+            borderColor: isDark ? "var(--color-dark-border)" : "var(--color-light-border)", 
+            color: isDark ? "#6B7280" : "#64748b" 
+          }}
         >
           <p>&copy; {new Date().getFullYear()} KoFund. All rights reserved.</p>
         </div>

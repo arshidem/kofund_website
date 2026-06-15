@@ -4,13 +4,21 @@ import { useEffect, useState } from "react";
 import { Sun, Moon } from "lucide-react";
 
 export default function ThemeToggle() {
-  const [dark, setDark] = useState(true);
+  const [dark, setDark] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+    // Sync with localStorage
     const stored = localStorage.getItem("theme");
-    if (stored === "light") {
+    if (stored === "dark") {
+      setDark(true);
+      document.body.classList.add("dark");
+      document.body.classList.remove("light");
+    } else {
       setDark(false);
       document.body.classList.add("light");
+      document.body.classList.remove("dark");
     }
   }, []);
 
@@ -18,19 +26,25 @@ export default function ThemeToggle() {
     const next = !dark;
     setDark(next);
     if (next) {
+      document.body.classList.add("dark");
       document.body.classList.remove("light");
       localStorage.setItem("theme", "dark");
     } else {
       document.body.classList.add("light");
+      document.body.classList.remove("dark");
       localStorage.setItem("theme", "light");
     }
   };
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <button
       onClick={toggle}
       aria-label="Toggle theme"
-      className="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full shadow-lg flex items-center justify-center transition-all hover:scale-110"
+      className="fixed bottom-6 right-6 z-[9999] w-12 h-12 rounded-full shadow-lg flex items-center justify-center transition-all hover:scale-110 cursor-pointer"
       style={{
         background: dark ? "#13181E" : "#ffffff",
         border: `1px solid ${dark ? "#1E2530" : "#e2e8f0"}`,

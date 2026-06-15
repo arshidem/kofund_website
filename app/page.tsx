@@ -15,7 +15,7 @@ import {
   RolesSkeleton,
   FAQSkeleton,
   CTASkeleton,
-  PricingSkeleton, // Add this new skeleton
+  PricingSkeleton,
 } from "@/components/skeletons";
 
 // Dynamically import sections with loading skeletons
@@ -66,10 +66,33 @@ const CTA = dynamic(() => import("@/sections/CTA"), {
 
 export default function Home() {
   const [mounted, setMounted] = useState(false);
+  const [themeReady, setThemeReady] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    // Ensure theme is applied before showing content
+    const syncTheme = () => {
+      const storedTheme = localStorage.getItem("theme");
+      if (storedTheme === "dark") {
+        document.body.classList.add("dark");
+        document.body.classList.remove("light");
+      } else {
+        document.body.classList.add("light");
+        document.body.classList.remove("dark");
+        if (!storedTheme) {
+          localStorage.setItem("theme", "light");
+        }
+      }
+      setThemeReady(true);
+      setMounted(true);
+    };
+
+    syncTheme();
   }, []);
+
+  // Show nothing while theme is being synced
+  if (!themeReady) {
+    return null;
+  }
 
   // Show all skeletons while loading
   if (!mounted) {
