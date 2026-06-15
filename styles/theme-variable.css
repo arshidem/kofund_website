@@ -1,0 +1,90 @@
+/* This file will be auto-generated but kept for reference */
+:root {
+  --light-primary: #00BFA6;
+  --light-primary-start: #00C6A2;
+  --light-primary-end: #00E3C3;
+  --light-background: #F8F9FA;
+  --light-card: #FFFFFF;
+  --light-surface: #FDFDFD;
+  --light-border: #E9ECEF;
+  --light-text-primary: #1A2E2A;
+  --light-text-secondary: #5F6B6B;
+  --light-text-tertiary: #8A9A9A;
+  --light-text-cards: #052224;
+  --light-revenue: #00BFA6;
+  --light-expense: #FF6B6B;
+  --light-balance: #2196F3;
+  --light-success: #00BFA6;
+  --light-error: #F44336;
+  --light-warning: #FFB300;
+  --light-info: #2196F3;
+  --light-progress-bg: #E8F5F2;
+  --light-progress-fill: #00BFA6;
+  
+  --dark-primary: #00E3C3;
+  --dark-primary-start: #1D2329;
+  --dark-primary-end: #0B0E11;
+  --dark-background: #0B0E11;
+  --dark-card: #151A1F;
+  --dark-surface: #1D2329;
+  --dark-border: #262D35;
+  --dark-text-primary: #E0F2EF;
+  --dark-text-secondary: #9EB6B4;
+  --dark-text-tertiary: #6B8A87;
+  --dark-text-cards: #F1FFF3;
+  --dark-revenue: #00E3C3;
+  --dark-expense: #FF8A8A;
+  --dark-balance: #4FC3F7;
+  --dark-success: #00E3C3;
+  --dark-error: #FF6B6B;
+  --dark-warning: #FFCA28;
+  --dark-info: #4FC3F7;
+  --dark-progress-bg: #1A2E2A;
+  --dark-progress-fill: #00E3C3;
+}
+
+body {
+  --primary: var(--dark-primary);
+  --primary-start: var(--dark-primary-start);
+  --primary-end: var(--dark-primary-end);
+  --background: var(--dark-background);
+  --card: var(--dark-card);
+  --surface: var(--dark-surface);
+  --border: var(--dark-border);
+  --text-primary: var(--dark-text-primary);
+  --text-secondary: var(--dark-text-secondary);
+  --text-tertiary: var(--dark-text-tertiary);
+  --text-cards: var(--dark-text-cards);
+  --revenue: var(--dark-revenue);
+  --expense: var(--dark-expense);
+  --balance: var(--dark-balance);
+  --success: var(--dark-success);
+  --error: var(--dark-error);
+  --warning: var(--dark-warning);
+  --info: var(--dark-info);
+  --progress-bg: var(--dark-progress-bg);
+  --progress-fill: var(--dark-progress-fill);
+}
+
+body.light {
+  --primary: var(--light-primary);
+  --primary-start: var(--light-primary-start);
+  --primary-end: var(--light-primary-end);
+  --background: var(--light-background);
+  --card: var(--light-card);
+  --surface: var(--light-surface);
+  --border: var(--light-border);
+  --text-primary: var(--light-text-primary);
+  --text-secondary: var(--light-text-secondary);
+  --text-tertiary: var(--light-text-tertiary);
+  --text-cards: var(--light-text-cards);
+  --revenue: var(--light-revenue);
+  --expense: var(--light-expense);
+  --balance: var(--light-balance);
+  --success: var(--light-success);
+  --error: var(--light-error);
+  --warning: var(--light-warning);
+  --info: var(--light-info);
+  --progress-bg: var(--light-progress-bg);
+  --progress-fill: var(--light-progress-fill);
+}
