@@ -18,10 +18,10 @@ export default function Reveal({ children, className = "", delay = 0, direction 
       ([entry]) => {
         if (entry.isIntersecting) {
           setTimeout(() => setIsVisible(true), delay);
-          observer.disconnect();
+          observer.disconnect(); // This replaces triggerOnce
         }
       },
-      { threshold: 0.1, triggerOnce: true }
+      { threshold: 0.1 }
     );
 
     if (ref.current) {
