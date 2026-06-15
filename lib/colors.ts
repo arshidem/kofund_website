@@ -46,8 +46,8 @@ export const darkColors = {
   progressFill: "#00E3C3",
 } as const;
 
-// Type for theme colors
-export type ThemeColors = typeof lightColors;
+// Type for theme colors - make it a union type
+export type ThemeColors = typeof lightColors | typeof darkColors;
 
 // Helper function to get current theme colors
 export const getThemeColors = (isDark: boolean): ThemeColors => {
