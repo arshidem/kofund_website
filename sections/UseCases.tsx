@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { LazyMotion, domAnimation, m } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Moon as MoonIcon, Users, Calendar, Heart, HandHeart, GraduationCap, Church, Users2, Ticket, Gift, Building2, BookOpen } from "lucide-react";
 
@@ -31,7 +31,7 @@ export default function UseCases() {
     return () => obs.disconnect();
   }, []);
 
- if (!mounted) {
+  if (!mounted) {
     return null; // Skeleton handles loading
   }
 
@@ -40,128 +40,128 @@ export default function UseCases() {
   const secondRow = cases.slice(6, 12);
 
   return (
-    <section className="py-16 sm:py-24 px-4 sm:px-6 overflow-hidden">
-      <div className="max-w-7xl mx-auto">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }} 
-          whileInView={{ opacity: 1, y: 0 }} 
-          viewport={{ once: true }} 
-          className="text-center mb-10 sm:mb-14"
-        >
-          <p className="text-primary text-sm font-medium mb-2">Use Cases</p>
-          <h2 
-            className="text-2xl sm:text-4xl font-bold"
-            style={{ color: dark ? "var(--color-dark-text-primary)" : "var(--color-light-text-primary)" }}
+    <LazyMotion features={domAnimation}>
+      <section className="py-12 sm:py-16 px-4 sm:px-6 overflow-hidden">
+        <div className="max-w-7xl mx-auto">
+          <m.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-8 sm:mb-12"
           >
-            Perfect For Every Committee & Group
-          </h2>
-          <p 
-            className="text-sm mt-3 max-w-2xl mx-auto"
-            style={{ color: dark ? "var(--color-dark-text-secondary)" : "var(--color-light-text-secondary)" }}
-          >
-            From religious organizations to student clubs, KoFund adapts to your community's needs
-          </p>
-        </motion.div>
-
-        {/* Auto-moving rows */}
-        <div className="relative">
-          {/* Row 1 - Moves left to right */}
-          <div className="relative mb-6 overflow-hidden">
-            <motion.div
-              animate={{ x: ["0%", "-100%"] }}
-              transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-              className="flex gap-4"
+            <p className="text-primary text-sm font-medium mb-2">Use Cases</p>
+            <h2
+              className="text-2xl sm:text-4xl font-bold"
+              style={{ color: dark ? "var(--color-dark-text-primary)" : "var(--color-light-text-primary)" }}
             >
-              {[...firstRow, ...firstRow].map((item, idx) => (
-                <div
-                  key={`${item.label}-${idx}`}
-                  className="flex-shrink-0 w-36 sm:w-40 lg:w-44"
-                >
-                  <div 
-                    className="rounded-2xl p-4 flex flex-col items-center gap-3 border transition-all duration-300 hover:scale-105 cursor-pointer group"
-                    style={{ 
-                      background: dark ? "var(--color-dark-card)" : "var(--color-light-card)", 
-                      borderColor: dark ? "var(--color-dark-border)" : "var(--color-light-border)" 
-                    }}
+              Perfect For Every Committee & Group
+            </h2>
+            <p
+              className="text-sm mt-3 max-w-2xl mx-auto"
+              style={{ color: dark ? "var(--color-dark-text-secondary)" : "var(--color-light-text-secondary)" }}
+            >
+              From religious organizations to student clubs, KoFund adapts to your community's needs
+            </p>
+          </m.div>
+
+          {/* Auto-moving rows */}
+          <div className="relative">
+            {/* Row 1 - Moves left to right */}
+            <div className="relative mb-6 overflow-hidden">
+              <m.div
+                animate={{ x: ["0%", "-100%"] }}
+                transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+                className="flex gap-4"
+              >
+                {[...firstRow, ...firstRow].map((item, idx) => (
+                  <div
+                    key={`${item.label}-${idx}`}
+                    className="flex-shrink-0 w-36 sm:w-40 lg:w-44"
                   >
-                    <div 
-                      className="w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-110"
-                      style={{ 
-                        background: dark ? "rgba(0, 227, 195, 0.1)" : "rgba(0, 191, 166, 0.1)",
+                    <div
+                      className="rounded-2xl p-4 flex flex-col items-center gap-3 border transition-all duration-300 hover:scale-105 cursor-pointer group"
+                      style={{
+                        background: dark ? "var(--color-dark-card)" : "var(--color-light-card)",
+                        borderColor: dark ? "var(--color-dark-border)" : "var(--color-light-border)"
                       }}
                     >
-                      <item.icon size={22} className="text-primary" />
+                      <div
+                        className="w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-110"
+                        style={{
+                          background: dark ? "rgba(0, 227, 195, 0.1)" : "rgba(0, 191, 166, 0.1)",
+                        }}
+                      >
+                        <item.icon size={22} className="text-primary" />
+                      </div>
+                      <p
+                        className="text-xs font-medium text-center leading-snug"
+                        style={{ color: dark ? "var(--color-dark-text-primary)" : "var(--color-light-text-primary)" }}
+                      >
+                        {item.label}
+                      </p>
                     </div>
-                    <p 
-                      className="text-xs font-medium text-center leading-snug"
-                      style={{ color: dark ? "var(--color-dark-text-primary)" : "var(--color-light-text-primary)" }}
-                    >
-                      {item.label}
-                    </p>
                   </div>
-                </div>
-              ))}
-            </motion.div>
-          </div>
+                ))}
+              </m.div>
+            </div>
 
-          {/* Row 2 - Moves right to left (opposite direction) */}
-          <div className="relative overflow-hidden">
-            <motion.div
-              animate={{ x: ["-100%", "0%"] }}
-              transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-              className="flex gap-4"
-            >
-              {[...secondRow, ...secondRow].map((item, idx) => (
-                <div
-                  key={`${item.label}-${idx}`}
-                  className="flex-shrink-0 w-36 sm:w-40 lg:w-44"
-                >
-                  <div 
-                    className="rounded-2xl p-4 flex flex-col items-center gap-3 border transition-all duration-300 hover:scale-105 cursor-pointer group"
-                    style={{ 
-                      background: dark ? "var(--color-dark-card)" : "var(--color-light-card)", 
-                      borderColor: dark ? "var(--color-dark-border)" : "var(--color-light-border)" 
-                    }}
+            {/* Row 2 - Moves right to left (opposite direction) */}
+            <div className="relative overflow-hidden">
+              <m.div
+                animate={{ x: ["-100%", "0%"] }}
+                transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+                className="flex gap-4"
+              >
+                {[...secondRow, ...secondRow].map((item, idx) => (
+                  <div
+                    key={`${item.label}-${idx}`}
+                    className="flex-shrink-0 w-36 sm:w-40 lg:w-44"
                   >
-                    <div 
-                      className="w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-110"
-                      style={{ 
-                        background: dark ? "rgba(0, 227, 195, 0.1)" : "rgba(0, 191, 166, 0.1)",
+                    <div
+                      className="rounded-2xl p-4 flex flex-col items-center gap-3 border transition-all duration-300 hover:scale-105 cursor-pointer group"
+                      style={{
+                        background: dark ? "var(--color-dark-card)" : "var(--color-light-card)",
+                        borderColor: dark ? "var(--color-dark-border)" : "var(--color-light-border)"
                       }}
                     >
-                      <item.icon size={22} className="text-primary" />
+                      <div
+                        className="w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-110"
+                        style={{
+                          background: dark ? "rgba(0, 227, 195, 0.1)" : "rgba(0, 191, 166, 0.1)",
+                        }}
+                      >
+                        <item.icon size={22} className="text-primary" />
+                      </div>
+                      <p
+                        className="text-xs font-medium text-center leading-snug"
+                        style={{ color: dark ? "var(--color-dark-text-primary)" : "var(--color-light-text-primary)" }}
+                      >
+                        {item.label}
+                      </p>
                     </div>
-                    <p 
-                      className="text-xs font-medium text-center leading-snug"
-                      style={{ color: dark ? "var(--color-dark-text-primary)" : "var(--color-light-text-primary)" }}
-                    >
-                      {item.label}
-                    </p>
                   </div>
-                </div>
-              ))}
-            </motion.div>
+                ))}
+              </m.div>
+            </div>
+          </div>
+
+          {/* Gradient overlays for smooth edges */}
+          <div className="relative mt-8">
+            <div
+              className="absolute left-0 top-0 bottom-0 w-16 pointer-events-none"
+              style={{
+                background: `linear-gradient(to right, ${dark ? "var(--color-dark-background)" : "var(--color-light-background)"}, transparent)`
+              }}
+            />
+            <div
+              className="absolute right-0 top-0 bottom-0 w-16 pointer-events-none"
+              style={{
+                background: `linear-gradient(to left, ${dark ? "var(--color-dark-background)" : "var(--color-light-background)"}, transparent)`
+              }}
+            />
           </div>
         </div>
-
-        {/* Gradient overlays for smooth edges */}
-        <div className="relative mt-8">
-          <div 
-            className="absolute left-0 top-0 bottom-0 w-16 pointer-events-none"
-            style={{
-              background: `linear-gradient(to right, ${dark ? "var(--color-dark-background)" : "var(--color-light-background)"}, transparent)`
-            }}
-          />
-          <div 
-            className="absolute right-0 top-0 bottom-0 w-16 pointer-events-none"
-            style={{
-              background: `linear-gradient(to left, ${dark ? "var(--color-dark-background)" : "var(--color-light-background)"}, transparent)`
-            }}
-          />
-        </div>
-
-  
-      </div>
-    </section>
+      </section>
+    </LazyMotion>
   );
 }
