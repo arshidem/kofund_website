@@ -140,7 +140,7 @@ export default function DeleteAccountPage() {
           borderColor: dark ? "#1E2530" : "#e2e8f0",
         }}
       >
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between relative">
+        <div className="max-w-4xl mx-auto h-16 flex items-center justify-between relative">
           <Link 
             href="/" 
             className="inline-flex items-center justify-center gap-1.5 text-sm transition-colors hover:text-primary group h-full"

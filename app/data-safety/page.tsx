@@ -174,7 +174,7 @@ export default function DataSafetyPage() {
           borderColor: dark ? "#1E2530" : "#e2e8f0",
         }}
       >
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between relative">
+        <div className="max-w-4xl mx-auto  h-16 flex items-center justify-between relative">
           {/* Back Button - Left */}
           <Link 
             href="/" 
