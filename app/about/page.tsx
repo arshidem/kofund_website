@@ -247,7 +247,7 @@ export default function AboutPage() {
             </Reveal>
 
             {/* Benefits */}
-            <Reveal direction="up" delay={300}>
+            <Reveal direction="up" delay={0}>
               <section>
                 <h2 className="text-xl sm:text-2xl font-semibold mb-4" style={{ color: dark ? "#ffffff" : "#0f172a" }}>
                   Key Benefits
