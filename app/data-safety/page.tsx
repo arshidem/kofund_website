@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { ChevronLeft, Shield, Database, Lock, UserCheck } from "lucide-react";
 import { useEffect, useState } from "react";
-import Reveal from "@/components/Reveal";
 
 // Skeleton Loader Component
 function DataSafetySkeleton() {
@@ -205,7 +204,6 @@ export default function DataSafetyPage() {
           }}
         >
           {/* Header */}
-          <Reveal direction="up">
             <div className="p-6 sm:p-8 border-b" style={{ borderColor: dark ? "#1E2530" : "#e2e8f0" }}>
               <h1 className="text-3xl sm:text-4xl font-bold mb-2" style={{ color: dark ? "#ffffff" : "#0f172a" }}>
                 Data Safety
@@ -214,12 +212,10 @@ export default function DataSafetyPage() {
                 How we protect your community finances and individual privacy.
               </p>
             </div>
-          </Reveal>
 
           {/* Content */}
           <div className="p-6 sm:p-8 space-y-6">
             {sections.map((section, index) => (
-              <Reveal key={index} direction="up" delay={100 + index * 50}>
                 <div 
                   className="p-4 rounded-xl border transition-all duration-300 hover:scale-[1.02]"
                   style={{ 
@@ -239,7 +235,6 @@ export default function DataSafetyPage() {
                     </div>
                   </div>
                 </div>
-              </Reveal>
             ))}
           </div>
         </div>

@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { ChevronLeft, Target, Shield, Users, Clock, TrendingUp } from "lucide-react";
 import { useEffect, useState } from "react";
-import Reveal from "@/components/Reveal";
 
 // Skeleton Loader Component
 function AboutPageSkeleton() {
@@ -198,7 +197,6 @@ export default function AboutPage() {
           }}
         >
           {/* Header */}
-          <Reveal direction="up">
             <div className="p-6 sm:p-8 border-b" style={{ borderColor: dark ? "#1E2530" : "#e2e8f0" }}>
               <h1 className="text-3xl sm:text-4xl font-bold mb-2" style={{ color: dark ? "#ffffff" : "#0f172a" }}>
                 About KoFund
@@ -207,12 +205,10 @@ export default function AboutPage() {
                 A transparent, dedicated platform for joint committee fund management.
               </p>
             </div>
-          </Reveal>
 
           {/* Content */}
           <div className="p-6 sm:p-8 space-y-8">
             {/* Mission Section */}
-            <Reveal direction="up" delay={100}>
               <section>
                 <h2 className="text-xl sm:text-2xl font-semibold mb-3 flex items-center gap-2" style={{ color: dark ? "#ffffff" : "#0f172a" }}>
                   <Target className="text-primary" size={24} />
@@ -228,10 +224,8 @@ export default function AboutPage() {
                   that is accessible, transparent, secure, and user-friendly.
                 </p>
               </section>
-            </Reveal>
 
             {/* Product Overview */}
-            <Reveal direction="up" delay={200}>
               <section>
                 <h2 className="text-xl sm:text-2xl font-semibold mb-3 flex items-center gap-2" style={{ color: dark ? "#ffffff" : "#0f172a" }}>
                   <Users className="text-primary" size={24} />
@@ -244,10 +238,8 @@ export default function AboutPage() {
                   manual balance updates in chat groups.
                 </p>
               </section>
-            </Reveal>
 
             {/* Benefits */}
-            <Reveal direction="up" delay={0}>
               <section>
                 <h2 className="text-xl sm:text-2xl font-semibold mb-4" style={{ color: dark ? "#ffffff" : "#0f172a" }}>
                   Key Benefits
@@ -279,7 +271,6 @@ export default function AboutPage() {
                   ))}
                 </div>
               </section>
-            </Reveal>
           </div>
         </div>
       </div>

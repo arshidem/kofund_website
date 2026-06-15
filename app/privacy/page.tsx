@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { ChevronLeft, Calendar } from "lucide-react";
 import { useEffect, useState } from "react";
-import Reveal from "@/components/Reveal";
 
 // Skeleton Loader Component
 function PrivacyPolicySkeleton() {
@@ -223,7 +222,6 @@ export default function PrivacyPolicyPage() {
           }}
         >
           {/* Header */}
-          <Reveal direction="up">
             <div className="p-6 sm:p-8 border-b" style={{ borderColor: dark ? "#1E2530" : "#e2e8f0" }}>
               <div className="flex items-center gap-2 text-sm mb-2" style={{ color: dark ? "#6B7280" : "#64748b" }}>
                 <Calendar size={14} />
@@ -233,12 +231,10 @@ export default function PrivacyPolicyPage() {
                 Privacy Policy
               </h1>
             </div>
-          </Reveal>
 
           {/* Content */}
           <div className="p-6 sm:p-8 space-y-8">
             {sections.map((section, index) => (
-              <Reveal key={index} direction="up" delay={100 + index * 50}>
                 <section className="transition-all duration-300 hover:translate-x-1">
                   <h2 className="text-xl sm:text-2xl font-semibold mb-3" style={{ color: dark ? "#ffffff" : "#0f172a" }}>
                     {section.title}
@@ -267,7 +263,6 @@ export default function PrivacyPolicyPage() {
                     </p>
                   )}
                 </section>
-              </Reveal>
             ))}
           </div>
         </div>
