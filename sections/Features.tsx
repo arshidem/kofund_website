@@ -1,8 +1,8 @@
 "use client";
 
-import { LazyMotion, domAnimation, m } from "framer-motion";
 import { useEffect, useState } from "react";
 import { CalendarDays, Link2, Receipt, FileText, Bell, Wallet, Users } from "lucide-react";
+import Reveal from "@/components/Reveal";
 
 const features = [
   { icon: CalendarDays, title: "Monthly & Event Contributions", description: "Track recurring monthly fees for clubs and societies, alongside one-off event targets — all in one dashboard." },
@@ -25,15 +25,11 @@ export default function Features() {
   }, []);
 
   return (
-    <LazyMotion features={domAnimation}>
-      <section id="features" className="py-12 sm:py-16 px-4 sm:px-6">
-        <div className="max-w-6xl mx-auto">
-          <m.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-8 sm:mb-12"
-          >
+    <section id="features" className="py-12 sm:py-16 px-4 sm:px-6">
+      <div className="max-w-6xl mx-auto">
+        {/* Header with Reveal animation */}
+        <Reveal direction="up">
+          <div className="text-center mb-8 sm:mb-12">
             <p className="text-primary text-sm font-medium mb-2">Features</p>
             <h2
               className="text-2xl sm:text-4xl font-bold"
@@ -41,16 +37,14 @@ export default function Features() {
             >
               Everything You Need to Run Smoothly
             </h2>
-          </m.div>
+          </div>
+        </Reveal>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
-            {features.map((f, i) => (
-              <m.div
-                key={f.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.06 }}
+        {/* Features Grid with staggered Reveal animations */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+          {features.map((f, i) => (
+            <Reveal key={f.title} delay={i * 100} direction="up">
+              <div
                 className="rounded-2xl p-5 border transition-all duration-300 group hover:scale-105"
                 style={{
                   background: dark ? "var(--color-dark-card)" : "var(--color-light-card)",
@@ -77,11 +71,11 @@ export default function Features() {
                 >
                   {f.description}
                 </p>
-              </m.div>
-            ))}
-          </div>
+              </div>
+            </Reveal>
+          ))}
         </div>
-      </section>
-    </LazyMotion>
+      </div>
+    </section>
   );
 }

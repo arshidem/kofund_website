@@ -1,9 +1,9 @@
 "use client";
 
-import { LazyMotion, domAnimation, m, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import { ChevronDown, HelpCircle, Mail, MessageCircle, Search } from "lucide-react";
 import Link from "next/link";
+import Reveal from "@/components/Reveal";
 
 const faqs = [
   { q: "Who can use KoFund?", a: "KoFund is designed for anyone managing money jointly — mosque committees, local event organizers, student organizations, charity collections, family savings pools, housing societies, clubs, and college groups." },
@@ -45,15 +45,11 @@ export default function FAQ() {
   }
 
   return (
-    <LazyMotion features={domAnimation}>
-      <section id="faq" className="py-12 sm:py-16 px-4 sm:px-6">
-        <div className="max-w-3xl mx-auto">
-          <m.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-8 sm:mb-12"
-          >
+    <section id="faq" className="py-12 sm:py-16 px-4 sm:px-6">
+      <div className="max-w-3xl mx-auto">
+        {/* Header */}
+        <Reveal direction="up">
+          <div className="text-center mb-8 sm:mb-12">
             <p className="text-primary text-sm font-medium mb-2">FAQ</p>
             <h2
               className="text-2xl sm:text-4xl font-bold"
@@ -67,15 +63,12 @@ export default function FAQ() {
             >
               Everything you need to know about KoFund. Can't find what you're looking for?
             </p>
-          </m.div>
+          </div>
+        </Reveal>
 
-          {/* Search Bar */}
-          <m.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mb-8"
-          >
+        {/* Search Bar */}
+        <Reveal direction="up" delay={100}>
+          <div className="mb-8">
             <div className="relative">
               <Search
                 size={18}
@@ -95,88 +88,76 @@ export default function FAQ() {
                 }}
               />
             </div>
-          </m.div>
-
-          {/* FAQ List */}
-          <div className="space-y-3">
-            {filteredFaqs.length === 0 ? (
-              <m.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="text-center py-12"
-              >
-                <HelpCircle size={48} className="mx-auto mb-3 opacity-50" />
-                <p style={{ color: dark ? "var(--color-dark-text-secondary)" : "var(--color-light-text-secondary)" }}>
-                  No questions found. Try a different search term.
-                </p>
-              </m.div>
-            ) : (
-              filteredFaqs.map((faq, i) => (
-                <m.div
-                  key={i}
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.03 }}
-                  className="rounded-xl border overflow-hidden transition-all duration-200 hover:shadow-md"
-                  style={{
-                    background: dark ? "var(--color-dark-card)" : "var(--color-light-card)",
-                    borderColor: dark ? "var(--color-dark-border)" : "var(--color-light-border)"
-                  }}
-                >
-                  <button
-                    onClick={() => setOpen(open === i ? null : i)}
-                    className="w-full flex items-center justify-between p-4 sm:p-5 text-left gap-3 group"
-                  >
-                    <span
-                      className="text-sm sm:text-base font-medium flex-1"
-                      style={{ color: dark ? "var(--color-dark-text-primary)" : "var(--color-light-text-primary)" }}
-                    >
-                      {faq.q}
-                    </span>
-                    <m.div
-                      animate={{ rotate: open === i ? 180 : 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <ChevronDown
-                        size={18}
-                        className="shrink-0 transition-colors group-hover:text-primary"
-                        style={{ color: dark ? "var(--color-dark-text-tertiary)" : "var(--color-light-text-tertiary)" }}
-                      />
-                    </m.div>
-                  </button>
-
-                  <AnimatePresence>
-                    {open === i && (
-                      <m.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.2 }}
-                        className="overflow-hidden"
-                      >
-                        <div className="px-4 sm:px-5 pb-4 sm:pb-5 pt-0">
-                          <div className="w-8 h-0.5 bg-primary/30 rounded-full mb-3" />
-                          <p
-                            className="text-xs sm:text-sm leading-relaxed"
-                            style={{ color: dark ? "var(--color-dark-text-secondary)" : "var(--color-light-text-secondary)" }}
-                          >
-                            {faq.a}
-                          </p>
-                        </div>
-                      </m.div>
-                    )}
-                  </AnimatePresence>
-                </m.div>
-              ))
-            )}
           </div>
+        </Reveal>
 
-          {/* Still have questions section */}
-          <m.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+        {/* FAQ List */}
+        <div className="space-y-3">
+          {filteredFaqs.length === 0 ? (
+            <div className="text-center py-12 animate-fade-in">
+              <HelpCircle size={48} className="mx-auto mb-3 opacity-50" />
+              <p style={{ color: dark ? "var(--color-dark-text-secondary)" : "var(--color-light-text-secondary)" }}>
+                No questions found. Try a different search term.
+              </p>
+            </div>
+          ) : (
+            filteredFaqs.map((faq, i) => (
+              <div
+                key={i}
+                className="rounded-xl border overflow-hidden transition-all duration-200 hover:shadow-md opacity-0 animate-fade-in-up"
+                style={{
+                  animationDelay: `${i * 0.03}s`,
+                  animationFillMode: "forwards",
+                  background: dark ? "var(--color-dark-card)" : "var(--color-light-card)",
+                  borderColor: dark ? "var(--color-dark-border)" : "var(--color-light-border)"
+                }}
+              >
+                <button
+                  onClick={() => setOpen(open === i ? null : i)}
+                  className="w-full flex items-center justify-between p-4 sm:p-5 text-left gap-3 group"
+                >
+                  <span
+                    className="text-sm sm:text-base font-medium flex-1"
+                    style={{ color: dark ? "var(--color-dark-text-primary)" : "var(--color-light-text-primary)" }}
+                  >
+                    {faq.q}
+                  </span>
+                  <div
+                    className={`transition-transform duration-200 ${
+                      open === i ? "rotate-180" : ""
+                    }`}
+                  >
+                    <ChevronDown
+                      size={18}
+                      className="shrink-0 transition-colors group-hover:text-primary"
+                      style={{ color: dark ? "var(--color-dark-text-tertiary)" : "var(--color-light-text-tertiary)" }}
+                    />
+                  </div>
+                </button>
+
+                <div
+                  className={`overflow-hidden transition-all duration-200 ${
+                    open === i ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
+                  }`}
+                >
+                  <div className="px-4 sm:px-5 pb-4 sm:pb-5 pt-0">
+                    <div className="w-8 h-0.5 bg-primary/30 rounded-full mb-3" />
+                    <p
+                      className="text-xs sm:text-sm leading-relaxed"
+                      style={{ color: dark ? "var(--color-dark-text-secondary)" : "var(--color-light-text-secondary)" }}
+                    >
+                      {faq.a}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+
+        {/* Still have questions section */}
+        <Reveal direction="up" delay={200}>
+          <div
             className="mt-12 p-6 rounded-2xl text-center border"
             style={{
               background: dark ? "var(--color-dark-surface)" : "var(--color-light-surface)",
@@ -218,36 +199,36 @@ export default function FAQ() {
                 <Mail size={16} /> kofundapp@gmail.com
               </Link>
             </div>
-          </m.div>
-
-          {/* Quick links */}
-          <div className="mt-8 flex justify-center gap-4 text-xs">
-            <Link
-              href="/privacy"
-              className="transition-colors hover:text-primary"
-              style={{ color: dark ? "var(--color-dark-text-tertiary)" : "var(--color-light-text-tertiary)" }}
-            >
-              Privacy Policy
-            </Link>
-            <span style={{ color: dark ? "var(--color-dark-border)" : "var(--color-light-border)" }}>•</span>
-            <Link
-              href="/terms"
-              className="transition-colors hover:text-primary"
-              style={{ color: dark ? "var(--color-dark-text-tertiary)" : "var(--color-light-text-tertiary)" }}
-            >
-              Terms of Service
-            </Link>
-            <span style={{ color: dark ? "var(--color-dark-border)" : "var(--color-light-border)" }}>•</span>
-            <Link
-              href="/data-safety"
-              className="transition-colors hover:text-primary"
-              style={{ color: dark ? "var(--color-dark-text-tertiary)" : "var(--color-light-text-tertiary)" }}
-            >
-              Data Safety
-            </Link>
           </div>
+        </Reveal>
+
+        {/* Quick links */}
+        <div className="mt-8 flex justify-center gap-4 text-xs">
+          <Link
+            href="/privacy"
+            className="transition-colors hover:text-primary"
+            style={{ color: dark ? "var(--color-dark-text-tertiary)" : "var(--color-light-text-tertiary)" }}
+          >
+            Privacy Policy
+          </Link>
+          <span style={{ color: dark ? "var(--color-dark-border)" : "var(--color-light-border)" }}>•</span>
+          <Link
+            href="/terms"
+            className="transition-colors hover:text-primary"
+            style={{ color: dark ? "var(--color-dark-text-tertiary)" : "var(--color-light-text-tertiary)" }}
+          >
+            Terms of Service
+          </Link>
+          <span style={{ color: dark ? "var(--color-dark-border)" : "var(--color-light-border)" }}>•</span>
+          <Link
+            href="/data-safety"
+            className="transition-colors hover:text-primary"
+            style={{ color: dark ? "var(--color-dark-text-tertiary)" : "var(--color-light-text-tertiary)" }}
+          >
+            Data Safety
+          </Link>
         </div>
-      </section>
-    </LazyMotion>
+      </div>
+    </section>
   );
 }

@@ -1,9 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Link from "next/link";
-import { ChevronLeft, AlertTriangle, Mail, Settings, Trash2 } from "lucide-react";
+import { ChevronLeft, AlertTriangle, Mail, Settings } from "lucide-react";
 import { useEffect, useState } from "react";
+import Reveal from "@/components/Reveal";
 
 // Skeleton Loader Component (no theme dependencies for SSR)
 function DeleteAccountSkeleton() {
@@ -160,16 +160,15 @@ export default function DeleteAccountPage() {
 
       {/* Main Content */}
       <div className="max-w-4xl mx-auto pt-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+        <div className="rounded-2xl border overflow-hidden animate-fade-in-up"
+          style={{
+            animationFillMode: "forwards",
+            background: dark ? "#13181E" : "#ffffff",
+            borderColor: dark ? "#1E2530" : "#e2e8f0"
+          }}
         >
-          <div 
-            className="rounded-2xl border overflow-hidden"
-            style={{ background: dark ? "#13181E" : "#ffffff", borderColor: dark ? "#1E2530" : "#e2e8f0" }}
-          >
-            {/* Header */}
+          {/* Header */}
+          <Reveal direction="up">
             <div className="p-6 sm:p-8 border-b" style={{ borderColor: dark ? "#1E2530" : "#e2e8f0" }}>
               <h1 className="text-3xl sm:text-4xl font-bold mb-2" style={{ color: dark ? "#ffffff" : "#0f172a" }}>
                 Delete Account
@@ -178,10 +177,12 @@ export default function DeleteAccountPage() {
                 Learn how to permanently erase your profile and records from KoFund.
               </p>
             </div>
+          </Reveal>
 
-            {/* Content */}
-            <div className="p-6 sm:p-8 space-y-8">
-              {/* Warning Box */}
+          {/* Content */}
+          <div className="p-6 sm:p-8 space-y-8">
+            {/* Warning Box */}
+            <Reveal direction="up" delay={100}>
               <div 
                 className="p-4 rounded-xl border border-red-500/20 transition-all duration-300 hover:scale-[1.02]"
                 style={{ background: dark ? "rgba(220, 38, 38, 0.1)" : "rgba(220, 38, 38, 0.05)" }}
@@ -199,8 +200,10 @@ export default function DeleteAccountPage() {
                   </div>
                 </div>
               </div>
+            </Reveal>
 
-              {/* Method 1: Web App */}
+            {/* Method 1: Web App */}
+            <Reveal direction="up" delay={200}>
               <div>
                 <h2 className="text-xl font-semibold mb-4 flex items-center gap-2" style={{ color: dark ? "#ffffff" : "#0f172a" }}>
                   <Settings size={20} className="text-primary" />
@@ -223,8 +226,10 @@ export default function DeleteAccountPage() {
                   </ol>
                 </div>
               </div>
+            </Reveal>
 
-              {/* Method 2: Email Request */}
+            {/* Method 2: Email Request */}
+            <Reveal direction="up" delay={300}>
               <div>
                 <h2 className="text-xl font-semibold mb-4 flex items-center gap-2" style={{ color: dark ? "#ffffff" : "#0f172a" }}>
                   <Mail size={20} className="text-primary" />
@@ -245,9 +250,9 @@ export default function DeleteAccountPage() {
                   </ul>
                 </div>
               </div>
-            </div>
+            </Reveal>
           </div>
-        </motion.div>
+        </div>
       </div>
     </div>
   );

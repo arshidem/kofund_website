@@ -1,9 +1,9 @@
 "use client";
 
-import { LazyMotion, domAnimation, m } from "framer-motion";
 import { useState, useEffect } from "react";
 import { Check, Zap, Crown } from "lucide-react";
 import Link from "next/link";
+import Reveal from "@/components/Reveal";
 
 const plans = [
   {
@@ -57,15 +57,11 @@ export default function Pricing() {
   }, []);
 
   return (
-    <LazyMotion features={domAnimation}>
-      <section id="pricing" className="py-12 sm:py-16 px-4 sm:px-6">
-        <div className="max-w-4xl mx-auto">
-          <m.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-8 sm:mb-12"
-          >
+    <section id="pricing" className="py-12 sm:py-16 px-4 sm:px-6">
+      <div className="max-w-4xl mx-auto">
+        {/* Header with Reveal animation */}
+        <Reveal direction="up">
+          <div className="text-center mb-8 sm:mb-12">
             <p className="text-primary text-sm font-medium mb-2">Simple Pricing</p>
             <h2 className="text-2xl sm:text-4xl font-bold mb-3" style={{ color: dark ? "#fff" : "#0f172a" }}>
               Just ₹25/month per Community
@@ -74,16 +70,14 @@ export default function Pricing() {
               Start with 30 days free trial. No credit card required. Cancel anytime.
               All members get full access for free.
             </p>
-          </m.div>
+          </div>
+        </Reveal>
 
-          <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
-            {plans.map((plan, idx) => (
-              <m.div
-                key={plan.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
+        {/* Pricing Cards Grid with staggered Reveal animations */}
+        <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+          {plans.map((plan, idx) => (
+            <Reveal key={plan.name} delay={idx * 150} direction="up">
+              <div
                 className={`relative rounded-2xl border p-6 transition-all hover:shadow-xl ${
                   plan.popular ? "border-primary shadow-lg" : ""
                 }`}
@@ -151,17 +145,20 @@ export default function Pricing() {
                     {plan.buttonText}
                   </button>
                 </Link>
-              </m.div>
-            ))}
-          </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
 
+        {/* Footer note */}
+        <Reveal direction="up" delay={300}>
           <div className="text-center mt-8">
             <p className="text-xs" style={{ color: dark ? "#6B7280" : "#64748b" }}>
               ✓ No hidden fees ✓ Cancel anytime ✓ 30-day free trial
             </p>
           </div>
-        </div>
-      </section>
-    </LazyMotion>
+        </Reveal>
+      </div>
+    </section>
   );
 }

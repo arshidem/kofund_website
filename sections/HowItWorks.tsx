@@ -1,8 +1,8 @@
 "use client";
 
-import { LazyMotion, domAnimation, m } from "framer-motion";
 import { useEffect, useState } from "react";
 import { UserPlus, Settings, BarChart3 } from "lucide-react";
+import Reveal from "@/components/Reveal";
 
 const steps = [
   { icon: UserPlus, title: "Create Your Group", description: "Set up your community — clubs, student group, event group, or family fund. Invite members instantly." },
@@ -27,15 +27,11 @@ export default function HowItWorks() {
   }
 
   return (
-    <LazyMotion features={domAnimation}>
-      <section id="how-it-works" className="py-12 sm:py-16 px-4 sm:px-6">
-        <div className="max-w-5xl mx-auto">
-          <m.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-8 sm:mb-12"
-          >
+    <section id="how-it-works" className="py-12 sm:py-16 px-4 sm:px-6">
+      <div className="max-w-5xl mx-auto">
+        {/* Header with Reveal animation */}
+        <Reveal direction="up">
+          <div className="text-center mb-8 sm:mb-12">
             <p className="text-primary text-sm font-medium mb-2">How It Works</p>
             <h2
               className="text-2xl sm:text-4xl font-bold"
@@ -43,18 +39,14 @@ export default function HowItWorks() {
             >
               Up and Running in Minutes
             </h2>
-          </m.div>
+          </div>
+        </Reveal>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-6">
-            {steps.map((step, i) => (
-              <m.div
-                key={step.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.15 }}
-                className="flex flex-col items-center text-center group"
-              >
+        {/* Steps Grid with staggered Reveal animations */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-6">
+          {steps.map((step, i) => (
+            <Reveal key={step.title} delay={i * 150} direction="up">
+              <div className="flex flex-col items-center text-center group">
                 <div className="relative mb-5">
                   <div
                     className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl border flex items-center justify-center transition-all duration-300 group-hover:scale-110"
@@ -93,11 +85,11 @@ export default function HowItWorks() {
                 >
                   {step.description}
                 </p>
-              </m.div>
-            ))}
-          </div>
+              </div>
+            </Reveal>
+          ))}
         </div>
-      </section>
-    </LazyMotion>
+      </div>
+    </section>
   );
 }

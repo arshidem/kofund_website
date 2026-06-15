@@ -1,9 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Link from "next/link";
 import { ChevronLeft, Mail, Clock, HelpCircle, Wifi, RefreshCw, Headphones, Globe } from "lucide-react";
 import { useEffect, useState } from "react";
+import Reveal from "@/components/Reveal";
 
 // Skeleton Loader Component
 function SupportSkeleton() {
@@ -204,18 +204,19 @@ export default function SupportPage() {
 
       {/* Main Content */}
       <div className="max-w-4xl mx-auto pt-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+        <div className="rounded-2xl border overflow-hidden animate-fade-in-up"
+          style={{
+            animationFillMode: "forwards",
+            background: dark ? "#13181E" : "#ffffff",
+            borderColor: dark ? "#1E2530" : "#e2e8f0"
+          }}
         >
-          <div 
-            className="rounded-2xl border overflow-hidden"
-            style={{ background: dark ? "#13181E" : "#ffffff", borderColor: dark ? "#1E2530" : "#e2e8f0" }}
-          >
-            {/* Header */}
+          {/* Header */}
+          <Reveal direction="up">
             <div className="p-6 sm:p-8 border-b" style={{ borderColor: dark ? "#1E2530" : "#e2e8f0" }}>
-             
+              <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 mb-4">
+                <Headphones size={24} className="text-primary" />
+              </div>
               <h1 className="text-3xl sm:text-4xl font-bold mb-2" style={{ color: dark ? "#ffffff" : "#0f172a" }}>
                 Help & Support
               </h1>
@@ -223,10 +224,12 @@ export default function SupportPage() {
                 We are here to help you manage your community funds smoothly.
               </p>
             </div>
+          </Reveal>
 
-            {/* Content */}
-            <div className="p-6 sm:p-8 space-y-8">
-              {/* Contact Information */}
+          {/* Content */}
+          <div className="p-6 sm:p-8 space-y-8">
+            {/* Contact Information */}
+            <Reveal direction="up" delay={100}>
               <div>
                 <h2 className="text-xl font-semibold mb-4 flex items-center gap-2" style={{ color: dark ? "#ffffff" : "#0f172a" }}>
                   <Mail size={20} className="text-primary" />
@@ -271,8 +274,10 @@ export default function SupportPage() {
                   </div>
                 </div>
               </div>
+            </Reveal>
 
-              {/* Troubleshooting Guide */}
+            {/* Troubleshooting Guide */}
+            <Reveal direction="up" delay={200}>
               <div>
                 <h2 className="text-xl font-semibold mb-4 flex items-center gap-2" style={{ color: dark ? "#ffffff" : "#0f172a" }}>
                   <HelpCircle size={20} className="text-primary" />
@@ -303,8 +308,10 @@ export default function SupportPage() {
                   ))}
                 </div>
               </div>
+            </Reveal>
 
-              {/* Support Hours */}
+            {/* Support Hours */}
+            <Reveal direction="up" delay={300}>
               <div>
                 <h2 className="text-xl font-semibold mb-4 flex items-center gap-2" style={{ color: dark ? "#ffffff" : "#0f172a" }}>
                   <Clock size={20} className="text-primary" />
@@ -337,9 +344,9 @@ export default function SupportPage() {
                   ))}
                 </div>
               </div>
-            </div>
+            </Reveal>
           </div>
-        </motion.div>
+        </div>
       </div>
     </div>
   );

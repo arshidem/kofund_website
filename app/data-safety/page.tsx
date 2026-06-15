@@ -1,9 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Link from "next/link";
 import { ChevronLeft, Shield, Database, Lock, UserCheck } from "lucide-react";
 import { useEffect, useState } from "react";
+import Reveal from "@/components/Reveal";
 
 // Skeleton Loader Component
 function DataSafetySkeleton() {
@@ -197,16 +197,15 @@ export default function DataSafetyPage() {
 
       {/* Main Content */}
       <div className="max-w-4xl mx-auto pt-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+        <div className="rounded-2xl border overflow-hidden animate-fade-in-up"
+          style={{
+            animationFillMode: "forwards",
+            background: dark ? "#13181E" : "#ffffff",
+            borderColor: dark ? "#1E2530" : "#e2e8f0"
+          }}
         >
-          <div 
-            className="rounded-2xl border overflow-hidden"
-            style={{ background: dark ? "#13181E" : "#ffffff", borderColor: dark ? "#1E2530" : "#e2e8f0" }}
-          >
-            {/* Header */}
+          {/* Header */}
+          <Reveal direction="up">
             <div className="p-6 sm:p-8 border-b" style={{ borderColor: dark ? "#1E2530" : "#e2e8f0" }}>
               <h1 className="text-3xl sm:text-4xl font-bold mb-2" style={{ color: dark ? "#ffffff" : "#0f172a" }}>
                 Data Safety
@@ -215,12 +214,13 @@ export default function DataSafetyPage() {
                 How we protect your community finances and individual privacy.
               </p>
             </div>
+          </Reveal>
 
-            {/* Content */}
-            <div className="p-6 sm:p-8 space-y-6">
-              {sections.map((section, index) => (
+          {/* Content */}
+          <div className="p-6 sm:p-8 space-y-6">
+            {sections.map((section, index) => (
+              <Reveal key={index} direction="up" delay={100 + index * 50}>
                 <div 
-                  key={index}
                   className="p-4 rounded-xl border transition-all duration-300 hover:scale-[1.02]"
                   style={{ 
                     background: dark ? "var(--color-dark-card)" : "var(--color-light-card)", 
@@ -239,10 +239,10 @@ export default function DataSafetyPage() {
                     </div>
                   </div>
                 </div>
-              ))}
-            </div>
+              </Reveal>
+            ))}
           </div>
-        </motion.div>
+        </div>
       </div>
     </div>
   );

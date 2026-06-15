@@ -1,9 +1,9 @@
 "use client";
 
-import { LazyMotion, domAnimation, m } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ArrowRight, Download, Sparkles, CheckCircle, Users, TrendingUp, Shield, Star, CreditCard, Rocket } from "lucide-react";
+import Reveal from "@/components/Reveal";
 
 export default function CTA() {
   const [dark, setDark] = useState(true);
@@ -17,6 +17,7 @@ export default function CTA() {
     return () => obs.disconnect();
   }, []);
 
+  // Skeleton loader while mounting
   if (!mounted) {
     return (
       <section className="py-12 sm:py-16 md:py-24 px-4 sm:px-6">
@@ -53,22 +54,8 @@ export default function CTA() {
               </div>
             </div>
             <div className="flex flex-col xs:flex-row gap-3 justify-center max-w-md mx-auto xs:max-w-none">
-              <Link
-                href="https://kofund-153ba.web.app"
-                target="_blank"
-                className="group flex items-center justify-center gap-2 bg-[#00E3C3] text-[#0B0E11] font-semibold px-6 sm:px-8 py-3 sm:py-3.5 rounded-xl hover:bg-[#00BFA6] transition-all hover:scale-105 active:scale-95 text-sm sm:text-base w-full"
-              >
-                Open Web App
-                <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
-              </Link>
-              <Link
-                href="https://drive.google.com/file/d/1jQEGYyfAZjnt9L8PPqYpANaizGaq0gq0/view?usp=sharing"
-                target="_blank"
-                className="group flex items-center justify-center gap-2 font-semibold px-6 sm:px-8 py-3 sm:py-3.5 rounded-xl border transition-all hover:scale-105 active:scale-95 text-sm sm:text-base w-full border-[#1E2530] text-white bg-transparent"
-              >
-                <Download size={16} className="transition-transform group-hover:-translate-y-0.5" />
-                Download App
-              </Link>
+              <div className="w-full h-11 bg-[#00E3C3]/20 rounded-xl animate-pulse" />
+              <div className="w-full h-11 bg-[#00E3C3]/10 rounded-xl animate-pulse" />
             </div>
             <div className="mt-8 pt-6 border-t border-[#1E2530]">
               <div className="flex flex-wrap items-center justify-center gap-3 text-xs">
@@ -84,7 +71,7 @@ export default function CTA() {
                 <span className="w-1 h-1 rounded-full bg-[#1E2530]" />
                 <div className="flex items-center gap-1.5">
                   <Rocket size={12} className="text-[#00E3C3]" />
-                  <span className="text-[#6B7280]">Free forever</span>
+                  <span className="text-[#6B7280]">30-day trial</span>
                 </div>
               </div>
             </div>
@@ -103,101 +90,76 @@ export default function CTA() {
   const trustBadges = [
     { icon: Star, text: "Trusted by 50+ communities" },
     { icon: CreditCard, text: "No credit card required" },
-    { icon: Rocket, text: "Free forever" },
+    { icon: Rocket, text: "30-day free trial" },
   ];
 
   return (
-    <LazyMotion features={domAnimation}>
-      <section className="py-12 sm:py-16 md:py-24 px-4 sm:px-6">
-        <div className="max-w-4xl mx-auto px-3 sm:px-0">
-          <m.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="relative rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-12 text-center overflow-hidden border shadow-xl"
-            style={{
-              background: dark ? "var(--color-dark-card)" : "var(--color-light-card)",
-              borderColor: dark ? "var(--color-dark-border)" : "var(--color-light-border)"
-            }}
-          >
-            {/* Background decoration */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 sm:w-48 md:w-96 h-32 sm:h-48 bg-primary/5 blur-2xl sm:blur-3xl rounded-full pointer-events-none" />
-            <div className="absolute bottom-0 right-0 w-40 h-40 bg-primary/5 blur-2xl rounded-full pointer-events-none" />
-            <div className="absolute top-0 left-0 w-40 h-40 bg-primary/5 blur-2xl rounded-full pointer-events-none" />
+    <section className="py-12 sm:py-16 md:py-24 px-4 sm:px-6">
+      <div className="max-w-4xl mx-auto px-3 sm:px-0">
+        <div className="relative rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-12 text-center overflow-hidden border shadow-xl"
+          style={{
+            background: dark ? "var(--color-dark-card)" : "var(--color-light-card)",
+            borderColor: dark ? "var(--color-dark-border)" : "var(--color-light-border)"
+          }}
+        >
+          {/* Background decoration */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 sm:w-48 md:w-96 h-32 sm:h-48 bg-primary/5 blur-2xl sm:blur-3xl rounded-full pointer-events-none" />
+          <div className="absolute bottom-0 right-0 w-40 h-40 bg-primary/5 blur-2xl rounded-full pointer-events-none" />
+          <div className="absolute top-0 left-0 w-40 h-40 bg-primary/5 blur-2xl rounded-full pointer-events-none" />
 
-            {/* Sparkle icon */}
-            <m.div
-              initial={{ scale: 0 }}
-              whileInView={{ scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2, duration: 0.5, type: "spring" }}
-              className="inline-flex mb-4"
-            >
-              <div
-                className="w-12 h-12 rounded-full flex items-center justify-center"
+          {/* Sparkle icon */}
+          <Reveal direction="scale" delay={0}>
+            <div className="inline-flex mb-4">
+              <div className="w-12 h-12 rounded-full flex items-center justify-center animate-scale-in"
                 style={{ background: "rgba(0, 227, 195, 0.15)" }}
               >
                 <Sparkles size={24} className="text-primary" />
               </div>
-            </m.div>
+            </div>
+          </Reveal>
 
+          <Reveal direction="up" delay={100}>
             <p className="text-primary text-xs sm:text-sm font-medium mb-2 sm:mb-3 uppercase tracking-wide">
               Get Started Today
             </p>
+          </Reveal>
 
-            <m.h2
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.15, duration: 0.6, ease: "easeOut" }}
-              className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 px-2"
+          <Reveal direction="up" delay={150}>
+            <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 px-2"
               style={{ color: dark ? "var(--color-dark-text-primary)" : "var(--color-light-text-primary)" }}
             >
               Ready to Simplify{" "}
               <span className="text-primary">Community Finances?</span>
-            </m.h2>
+            </h2>
+          </Reveal>
 
-            <m.p
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2, duration: 0.6, ease: "easeOut" }}
-              className="text-sm sm:text-base mb-6 sm:mb-8 max-w-sm mx-auto px-3 leading-relaxed"
+          <Reveal direction="up" delay={200}>
+            <p className="text-sm sm:text-base mb-6 sm:mb-8 max-w-sm mx-auto px-3 leading-relaxed"
               style={{ color: dark ? "var(--color-dark-text-secondary)" : "var(--color-light-text-secondary)" }}
             >
               Join thousands of communities already using KoFund to manage finances with complete transparency and ease.
-            </m.p>
+            </p>
+          </Reveal>
 
-            {/* Benefits row */}
-            <m.div
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.25, duration: 0.6, ease: "easeOut" }}
-              className="flex flex-wrap justify-center gap-4 mb-8"
-            >
+          {/* Benefits row */}
+          <Reveal direction="up" delay={250}>
+            <div className="flex flex-wrap justify-center gap-4 mb-8">
               {benefits.map((benefit, idx) => (
                 <div key={idx} className="flex items-center gap-2">
                   <benefit.icon size={16} className="text-primary" />
-                  <span
-                    className="text-xs"
+                  <span className="text-xs"
                     style={{ color: dark ? "var(--color-dark-text-secondary)" : "var(--color-light-text-secondary)" }}
                   >
                     {benefit.text}
                   </span>
                 </div>
               ))}
-            </m.div>
+            </div>
+          </Reveal>
 
-            {/* Buttons */}
-            <m.div
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3, duration: 0.6, ease: "easeOut" }}
-              className="flex flex-col xs:flex-row gap-3 justify-center max-w-md mx-auto xs:max-w-none"
-            >
+          {/* Buttons */}
+          <Reveal direction="up" delay={300}>
+            <div className="flex flex-col xs:flex-row gap-3 justify-center max-w-md mx-auto xs:max-w-none">
               <Link
                 href="https://kofund-153ba.web.app"
                 target="_blank"
@@ -223,15 +185,12 @@ export default function CTA() {
                 <Download size={16} className="transition-transform group-hover:-translate-y-0.5" />
                 Download App
               </Link>
-            </m.div>
+            </div>
+          </Reveal>
 
-            {/* Trust badges */}
-            <m.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.35, duration: 0.6, ease: "easeOut" }}
-              className="mt-8 pt-6 border-t"
+          {/* Trust badges */}
+          <Reveal direction="up" delay={350}>
+            <div className="mt-8 pt-6 border-t"
               style={{ borderColor: dark ? "var(--color-dark-border)" : "var(--color-light-border)" }}
             >
               <div className="flex flex-wrap items-center justify-center gap-3 text-xs">
@@ -242,18 +201,17 @@ export default function CTA() {
                       {badge.text}
                     </span>
                     {idx < trustBadges.length - 1 && (
-                      <span
-                        className="w-1 h-1 rounded-full mx-1"
+                      <span className="w-1 h-1 rounded-full mx-1"
                         style={{ background: dark ? "var(--color-dark-border)" : "var(--color-light-border)" }}
                       />
                     )}
                   </div>
                 ))}
               </div>
-            </m.div>
-          </m.div>
+            </div>
+          </Reveal>
         </div>
-      </section>
-    </LazyMotion>
+      </div>
+    </section>
   );
 }

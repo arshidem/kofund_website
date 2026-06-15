@@ -1,8 +1,8 @@
 "use client";
 
-import { LazyMotion, domAnimation, m, AnimatePresence } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 import { ShieldCheck, Eye, ClipboardList } from "lucide-react";
+import Reveal from "@/components/Reveal";
 
 const roles = [
   { id: "admin", icon: ShieldCheck, label: "Admins", heading: "Take Control of the Ledger", sub: "Spend less time responding to messages and more time running your group.", points: ["Record contributions and manage recurring monthly fees or events in 3 clicks.", "Send automatic push notifications & reminders to members with outstanding dues.", "Generate and share beautiful event summaries in PDF or image format."] },
@@ -14,14 +14,12 @@ export default function Roles() {
   const [active, setActive] = useState("admin");
   const [dark, setDark] = useState(true);
   const [mounted, setMounted] = useState(false);
-  const [direction, setDirection] = useState(0);
   const [sliderStyle, setSliderStyle] = useState({ left: 0, width: 0 });
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const tabsContainerRef = useRef<HTMLDivElement>(null);
   const buttonRefs = useRef<{ [key: string]: HTMLButtonElement | null }>({});
 
   const current = roles.find((r) => r.id === active)!;
-  const activeIndex = roles.findIndex(r => r.id === active);
 
   useEffect(() => {
     setMounted(true);
@@ -51,7 +49,7 @@ export default function Roles() {
           width: buttonRect.width,
         });
         
-        // Scroll active tab into view on mobile (but keep centered on desktop)
+        // Scroll active tab into view on mobile
         if (scrollContainerRef.current && window.innerWidth < 1024) {
           const scrollContainer = scrollContainerRef.current;
           const scrollButtonLeft = button.offsetLeft;
@@ -72,43 +70,24 @@ export default function Roles() {
   }, [active, mounted]);
 
   const handleTabChange = (newId: string) => {
-    const newIndex = roles.findIndex(r => r.id === newId);
-    setDirection(newIndex > activeIndex ? 1 : -1);
     setActive(newId);
   };
 
   if (!mounted) {
-    return null; // Skeleton handles loading
+    return null;
   }
 
-  const slideVariants = {
-    enter: (direction: number) => ({
-      x: direction > 0 ? 100 : -100,
-      opacity: 0,
-      scale: 0.95
-    }),
-    center: {
-      x: 0,
-      opacity: 1,
-      scale: 1
-    },
-    exit: (direction: number) => ({
-      x: direction < 0 ? 100 : -100,
-      opacity: 0,
-      scale: 0.95
-    })
+  // Get content animation class based on active tab
+  const getContentAnimationClass = () => {
+    return "animate-fade-in-up";
   };
 
   return (
-    <LazyMotion features={domAnimation}>
-      <section className="py-12 sm:py-16 px-4 sm:px-6">
-        <div className="max-w-3xl mx-auto">
-          <m.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-8 sm:mb-10"
-          >
+    <section className="py-12 sm:py-16 px-4 sm:px-6">
+      <div className="max-w-3xl mx-auto">
+        {/* Header */}
+        <Reveal direction="up">
+          <div className="text-center mb-8 sm:mb-10">
             <p className="text-primary text-sm font-medium mb-2">Roles</p>
             <h2
               className="text-2xl sm:text-4xl font-bold"
@@ -116,174 +95,132 @@ export default function Roles() {
             >
               Built for Everyone in the Group
             </h2>
-          </m.div>
+          </div>
+        </Reveal>
 
-          {/* Tab Container - Centered on desktop, scrollable on mobile */}
-          <div className="mb-8">
-            {/* Scrollable tabs container with center alignment on desktop */}
-            <div
-              ref={scrollContainerRef}
-              className="overflow-x-auto scrollbar-hide"
-              style={{
-                scrollbarWidth: 'none',
-                msOverflowStyle: 'none',
-                WebkitOverflowScrolling: 'touch'
-              }}
-            >
-              {/* Center the tabs on all screen sizes */}
-              <div className="flex justify-center">
+        {/* Tab Container */}
+        <div className="mb-8">
+          <div
+            ref={scrollContainerRef}
+            className="overflow-x-auto scrollbar-hide"
+            style={{
+              scrollbarWidth: 'none',
+              msOverflowStyle: 'none',
+              WebkitOverflowScrolling: 'touch'
+            }}
+          >
+            <div className="flex justify-center">
+              <div
+                ref={tabsContainerRef}
+                className="relative inline-flex rounded-xl p-1 gap-1"
+                style={{
+                  background: dark ? "var(--color-dark-surface)" : "var(--color-light-surface)",
+                  border: `1px solid ${dark ? "var(--color-dark-border)" : "var(--color-light-border)"}`
+                }}
+              >
+                {/* Animated Sliding Background using CSS transition */}
                 <div
-                  ref={tabsContainerRef}
-                  className="relative inline-flex rounded-xl p-1 gap-1"
+                  className="absolute rounded-lg transition-all duration-300 ease-out"
                   style={{
-                    background: dark ? "var(--color-dark-surface)" : "var(--color-light-surface)",
-                    border: `1px solid ${dark ? "var(--color-dark-border)" : "var(--color-light-border)"}`
+                    left: sliderStyle.left,
+                    width: sliderStyle.width,
+                    height: 'calc(100% - 8px)',
+                    top: '4px',
+                    background: "var(--color-primary)",
+                    transition: "left 0.3s ease-out, width 0.3s ease-out"
                   }}
-                >
-                  {/* Animated Sliding Background */}
-                  <m.div
-                    className="absolute rounded-lg"
-                    initial={false}
-                    animate={{
-                      left: sliderStyle.left,
-                      width: sliderStyle.width,
-                    }}
-                    transition={{
-                      type: "spring",
-                      stiffness: 500,
-                      damping: 35,
-                      mass: 0.5
-                    }}
-                    style={{
-                      height: 'calc(100% - 8px)',
-                      top: '4px',
-                      background: "var(--color-primary)",
-                    }}
-                  />
+                />
 
-                  {roles.map((r) => {
-                    const isActive = active === r.id;
-                    return (
-                      <m.button
-                        key={r.id}
-                        ref={(el) => { buttonRefs.current[r.id] = el; }}
-                        onClick={() => handleTabChange(r.id)}
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        className="relative whitespace-nowrap px-4 sm:px-5 py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors duration-200 z-10"
-                        style={{
-                          color: isActive ? "#0B0E11" : (dark ? "var(--color-dark-text-secondary)" : "var(--color-light-text-secondary)"),
-                        }}
-                      >
-                        <span className="flex items-center gap-2">
-                          <r.icon size={15} /> {r.label}
-                        </span>
-                      </m.button>
-                    );
-                  })}
-                </div>
+                {roles.map((r) => {
+                  const isActive = active === r.id;
+                  return (
+                    <button
+                      key={r.id}
+                      ref={(el) => { buttonRefs.current[r.id] = el; }}
+                      onClick={() => handleTabChange(r.id)}
+                      className="relative whitespace-nowrap px-4 sm:px-5 py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors duration-200 z-10 hover:scale-105 active:scale-95"
+                      style={{
+                        color: isActive ? "#0B0E11" : (dark ? "var(--color-dark-text-secondary)" : "var(--color-light-text-secondary)"),
+                      }}
+                    >
+                      <span className="flex items-center gap-2">
+                        <r.icon size={15} /> {r.label}
+                      </span>
+                    </button>
+                  );
+                })}
               </div>
             </div>
           </div>
-
-          {/* Content Container with smooth slide animation */}
-          <AnimatePresence mode="wait" custom={direction}>
-            <m.div
-              key={active}
-              custom={direction}
-              variants={slideVariants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{
-                x: { type: "spring", stiffness: 400, damping: 35 },
-                opacity: { duration: 0.2 },
-                scale: { duration: 0.2 }
-              }}
-              className="rounded-2xl p-6 sm:p-8 border shadow-lg"
-              style={{
-                background: dark ? "var(--color-dark-card)" : "var(--color-light-card)",
-                borderColor: dark ? "var(--color-dark-border)" : "var(--color-light-border)"
-              }}
-            >
-              <m.h3
-                className="text-xl sm:text-2xl font-bold mb-2"
-                style={{ color: dark ? "var(--color-dark-text-primary)" : "var(--color-light-text-primary)" }}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.15 }}
-              >
-                {current.heading}
-              </m.h3>
-
-              <m.p
-                className="text-sm mb-6"
-                style={{ color: dark ? "var(--color-dark-text-secondary)" : "var(--color-light-text-secondary)" }}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-              >
-                {current.sub}
-              </m.p>
-
-              <ul className="space-y-3">
-                {current.points.map((pt, idx) => (
-                  <m.li
-                    key={pt}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.25 + idx * 0.1 }}
-                    className="flex items-start gap-3"
-                  >
-                    <m.div
-                      className="w-5 h-5 rounded-full flex items-center justify-center mt-0.5 shrink-0"
-                      style={{ background: "rgba(0, 227, 195, 0.15)" }}
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ delay: 0.25 + idx * 0.1 }}
-                    >
-                      <div
-                        className="w-1.5 h-1.5 rounded-full"
-                        style={{ background: "var(--color-primary)" }}
-                      />
-                    </m.div>
-                    <span
-                      className="text-xs sm:text-sm leading-relaxed"
-                      style={{ color: dark ? "var(--color-dark-text-secondary)" : "var(--color-light-text-secondary)" }}
-                    >
-                      {pt}
-                    </span>
-                  </m.li>
-                ))}
-              </ul>
-            </m.div>
-          </AnimatePresence>
-
-          {/* Role indicator dots with animation */}
-          <div className="flex justify-center gap-2 mt-6">
-            {roles.map((r, idx) => (
-              <button
-                key={r.id}
-                onClick={() => handleTabChange(r.id)}
-                className="transition-all duration-300 group"
-              >
-                <m.div
-                  className="h-1.5 rounded-full transition-all duration-300"
-                  style={{
-                    background: active === r.id ? "var(--color-primary)" : (dark ? "var(--color-dark-border)" : "var(--color-light-border)"),
-                  }}
-                  whileHover={{ scale: 1.2 }}
-                  animate={{
-                    width: active === r.id ? 24 : 6,
-                    background: active === r.id ? "var(--color-primary)" : (dark ? "var(--color-dark-border)" : "var(--color-light-border)")
-                  }}
-                  transition={{ type: "spring", stiffness: 500, damping: 35 }}
-                />
-              </button>
-            ))}
-          </div>
         </div>
-      </section>
-    </LazyMotion>
+
+        {/* Content Container with CSS fade animation */}
+        <div key={active} className={`rounded-2xl p-6 sm:p-8 border shadow-lg ${getContentAnimationClass()}`}
+          style={{
+            background: dark ? "var(--color-dark-card)" : "var(--color-light-card)",
+            borderColor: dark ? "var(--color-dark-border)" : "var(--color-light-border)"
+          }}
+        >
+          <h3
+            className="text-xl sm:text-2xl font-bold mb-2"
+            style={{ color: dark ? "var(--color-dark-text-primary)" : "var(--color-light-text-primary)" }}
+          >
+            {current.heading}
+          </h3>
+
+          <p
+            className="text-sm mb-6"
+            style={{ color: dark ? "var(--color-dark-text-secondary)" : "var(--color-light-text-secondary)" }}
+          >
+            {current.sub}
+          </p>
+
+          <ul className="space-y-3">
+            {current.points.map((pt, idx) => (
+              <li
+                key={pt}
+                className="flex items-start gap-3 opacity-0 animate-fade-in-up"
+                style={{ animationDelay: `${0.1 + idx * 0.1}s`, animationFillMode: "forwards" }}
+              >
+                <div
+                  className="w-5 h-5 rounded-full flex items-center justify-center mt-0.5 shrink-0"
+                  style={{ background: "rgba(0, 227, 195, 0.15)" }}
+                >
+                  <div
+                    className="w-1.5 h-1.5 rounded-full"
+                    style={{ background: "var(--color-primary)" }}
+                  />
+                </div>
+                <span
+                  className="text-xs sm:text-sm leading-relaxed"
+                  style={{ color: dark ? "var(--color-dark-text-secondary)" : "var(--color-light-text-secondary)" }}
+                >
+                  {pt}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Role indicator dots */}
+        <div className="flex justify-center gap-2 mt-6">
+          {roles.map((r) => (
+            <button
+              key={r.id}
+              onClick={() => handleTabChange(r.id)}
+              className="transition-all duration-300 group"
+            >
+              <div
+                className="h-1.5 rounded-full transition-all duration-300"
+                style={{
+                  width: active === r.id ? 24 : 6,
+                  background: active === r.id ? "var(--color-primary)" : (dark ? "var(--color-dark-border)" : "var(--color-light-border)"),
+                }}
+              />
+            </button>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }

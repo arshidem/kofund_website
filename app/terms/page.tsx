@@ -1,9 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Link from "next/link";
 import { ChevronLeft, Calendar, FileText } from "lucide-react";
 import { useEffect, useState } from "react";
+import Reveal from "@/components/Reveal";
 
 // Skeleton Loader Component
 function TermsOfServiceSkeleton() {
@@ -197,18 +197,19 @@ export default function TermsOfServicePage() {
 
       {/* Main Content */}
       <div className="max-w-4xl mx-auto pt-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+        <div className="rounded-2xl border overflow-hidden animate-fade-in-up"
+          style={{
+            animationFillMode: "forwards",
+            background: dark ? "#13181E" : "#ffffff",
+            borderColor: dark ? "#1E2530" : "#e2e8f0"
+          }}
         >
-          <div 
-            className="rounded-2xl border overflow-hidden"
-            style={{ background: dark ? "#13181E" : "#ffffff", borderColor: dark ? "#1E2530" : "#e2e8f0" }}
-          >
-            {/* Header */}
+          {/* Header */}
+          <Reveal direction="up">
             <div className="p-6 sm:p-8 border-b" style={{ borderColor: dark ? "#1E2530" : "#e2e8f0" }}>
-            
+              <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 mb-4">
+                <FileText size={24} className="text-primary" />
+              </div>
               <div className="flex items-center gap-2 text-sm mb-2" style={{ color: dark ? "#6B7280" : "#64748b" }}>
                 <Calendar size={14} />
                 Last Updated: June 2026
@@ -217,11 +218,13 @@ export default function TermsOfServicePage() {
                 Terms of Service
               </h1>
             </div>
+          </Reveal>
 
-            {/* Content */}
-            <div className="p-6 sm:p-8 space-y-8">
-              {sections.map((section, index) => (
-                <section key={index} className="transition-all duration-300 hover:translate-x-1">
+          {/* Content */}
+          <div className="p-6 sm:p-8 space-y-8">
+            {sections.map((section, index) => (
+              <Reveal key={index} direction="up" delay={100 + index * 50}>
+                <section className="transition-all duration-300 hover:translate-x-1">
                   <h2 className="text-xl sm:text-2xl font-semibold mb-3" style={{ color: dark ? "#ffffff" : "#0f172a" }}>
                     {section.title}
                   </h2>
@@ -229,10 +232,10 @@ export default function TermsOfServicePage() {
                     {section.content}
                   </p>
                 </section>
-              ))}
-            </div>
+              </Reveal>
+            ))}
           </div>
-        </motion.div>
+        </div>
       </div>
     </div>
   );

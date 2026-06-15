@@ -1,8 +1,8 @@
 "use client";
 
-import { LazyMotion, domAnimation, m } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Check, X, Minus } from "lucide-react";
+import Reveal from "@/components/Reveal";
 
 const rows = [
   { feature: "Track Contributions", wa: { s: false }, no: { s: "partial" }, kf: { s: true, note: "Auto per member" } },
@@ -63,15 +63,11 @@ export default function Comparison() {
   }
 
   return (
-    <LazyMotion features={domAnimation}>
-      <section id="comparison" className="py-16 sm:py-24 px-4 sm:px-6">
-        <div className="max-w-3xl mx-auto">
-          <m.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-10 sm:mb-14"
-          >
+    <section id="comparison" className="py-12 sm:py-16 px-4 sm:px-6">
+      <div className="max-w-3xl mx-auto">
+        {/* Header */}
+        <Reveal direction="up">
+          <div className="text-center mb-8 sm:mb-12">
             <p className="text-primary text-sm font-medium mb-2">Why KoFund?</p>
             <h2
               className="text-2xl sm:text-4xl font-bold mb-3"
@@ -85,14 +81,15 @@ export default function Comparison() {
             >
               Traditional tools fall short when it comes to accountability.
             </p>
-          </m.div>
+          </div>
+        </Reveal>
 
-          <m.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="rounded-2xl border overflow-hidden"
+        {/* Comparison Table */}
+        <Reveal direction="up" delay={100}>
+          <div
+            className="rounded-2xl border overflow-hidden animate-fade-in-up"
             style={{
+              animationFillMode: "forwards",
               background: dark ? "var(--color-dark-card)" : "var(--color-light-card)",
               borderColor: dark ? "var(--color-dark-border)" : "var(--color-light-border)"
             }}
@@ -107,6 +104,7 @@ export default function Comparison() {
               ))}
             </div>
 
+            {/* Rows */}
             {rows.map((row, i) => (
               <div
                 key={row.feature}
@@ -129,8 +127,11 @@ export default function Comparison() {
                 </div>
               </div>
             ))}
-          </m.div>
+          </div>
+        </Reveal>
 
+        {/* Legend */}
+        <Reveal direction="up" delay={150}>
           <div className="mt-6 text-center">
             <p
               className="text-xs"
@@ -139,8 +140,8 @@ export default function Comparison() {
               ✓ = Supported &nbsp;&nbsp;|&nbsp;&nbsp; ⟋ = Partial &nbsp;&nbsp;|&nbsp;&nbsp; ✗ = Not Supported
             </p>
           </div>
-        </div>
-      </section>
-    </LazyMotion>
+        </Reveal>
+      </div>
+    </section>
   );
 }

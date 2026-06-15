@@ -1,9 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Link from "next/link";
 import { ChevronLeft, Target, Shield, Users, Clock, TrendingUp } from "lucide-react";
 import { useEffect, useState } from "react";
+import Reveal from "@/components/Reveal";
 
 // Skeleton Loader Component
 function AboutPageSkeleton() {
@@ -156,50 +156,49 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen pb-16 px-4 sm:px-6">
       {/* Sticky App Bar with scroll effect */}
-     <div 
-  className={`sticky top-0 z-50 transition-all duration-300 backdrop-blur-md border-b ${
-    scrolled ? "shadow-md" : ""
-  }`}
-  style={{
-    background: dark 
-      ? (scrolled ? "rgba(11, 14, 17, 0.98)" : "rgba(11, 14, 17, 0.8)")
-      : (scrolled ? "rgba(248, 250, 252, 0.98)" : "rgba(248, 250, 252, 0.8)"),
-    borderColor: dark ? "#1E2530" : "#e2e8f0",
-  }}
->
-  <div className="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between relative">
-    {/* Back Button - Left - Centered vertically */}
-    <Link 
-      href="/" 
-      className="inline-flex items-center justify-center gap-1.5 text-sm transition-colors hover:text-primary group h-full"
-      style={{ color: dark ? "#6B7280" : "#64748b" }}
-    >
-      <ChevronLeft size={16} className="transition-transform group-hover:-translate-x-0.5" /> 
-      <span className="leading-none">Back</span>
-    </Link>
+      <div 
+        className={`sticky top-0 z-50 transition-all duration-300 backdrop-blur-md border-b ${
+          scrolled ? "shadow-md" : ""
+        }`}
+        style={{
+          background: dark 
+            ? (scrolled ? "rgba(11, 14, 17, 0.98)" : "rgba(11, 14, 17, 0.8)")
+            : (scrolled ? "rgba(248, 250, 252, 0.98)" : "rgba(248, 250, 252, 0.8)"),
+          borderColor: dark ? "#1E2530" : "#e2e8f0",
+        }}
+      >
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between relative">
+          {/* Back Button - Left */}
+          <Link 
+            href="/" 
+            className="inline-flex items-center justify-center gap-1.5 text-sm transition-colors hover:text-primary group h-full"
+            style={{ color: dark ? "#6B7280" : "#64748b" }}
+          >
+            <ChevronLeft size={16} className="transition-transform group-hover:-translate-x-0.5" /> 
+            <span className="leading-none">Back</span>
+          </Link>
 
-    {/* Centered Logo */}
-    <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
-      <Logo />
-    </div>
+          {/* Centered Logo */}
+          <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <Logo />
+          </div>
 
-    {/* Empty div for balance */}
-    <div className="w-16 opacity-0 pointer-events-none" aria-hidden="true" />
-  </div>
-</div>
+          {/* Empty div for balance */}
+          <div className="w-16 opacity-0 pointer-events-none" aria-hidden="true" />
+        </div>
+      </div>
 
       {/* Main Content */}
       <div className="max-w-4xl mx-auto pt-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+        <div className="rounded-2xl border overflow-hidden animate-fade-in-up"
+          style={{
+            animationFillMode: "forwards",
+            background: dark ? "#13181E" : "#ffffff",
+            borderColor: dark ? "#1E2530" : "#e2e8f0"
+          }}
         >
-          <div 
-            className="rounded-2xl border overflow-hidden"
-            style={{ background: dark ? "#13181E" : "#ffffff", borderColor: dark ? "#1E2530" : "#e2e8f0" }}
-          >
-            {/* Header */}
+          {/* Header */}
+          <Reveal direction="up">
             <div className="p-6 sm:p-8 border-b" style={{ borderColor: dark ? "#1E2530" : "#e2e8f0" }}>
               <h1 className="text-3xl sm:text-4xl font-bold mb-2" style={{ color: dark ? "#ffffff" : "#0f172a" }}>
                 About KoFund
@@ -208,10 +207,12 @@ export default function AboutPage() {
                 A transparent, dedicated platform for joint committee fund management.
               </p>
             </div>
+          </Reveal>
 
-            {/* Content */}
-            <div className="p-6 sm:p-8 space-y-8">
-              {/* Mission Section */}
+          {/* Content */}
+          <div className="p-6 sm:p-8 space-y-8">
+            {/* Mission Section */}
+            <Reveal direction="up" delay={100}>
               <section>
                 <h2 className="text-xl sm:text-2xl font-semibold mb-3 flex items-center gap-2" style={{ color: dark ? "#ffffff" : "#0f172a" }}>
                   <Target className="text-primary" size={24} />
@@ -227,8 +228,10 @@ export default function AboutPage() {
                   that is accessible, transparent, secure, and user-friendly.
                 </p>
               </section>
+            </Reveal>
 
-              {/* Product Overview */}
+            {/* Product Overview */}
+            <Reveal direction="up" delay={200}>
               <section>
                 <h2 className="text-xl sm:text-2xl font-semibold mb-3 flex items-center gap-2" style={{ color: dark ? "#ffffff" : "#0f172a" }}>
                   <Users className="text-primary" size={24} />
@@ -241,8 +244,10 @@ export default function AboutPage() {
                   manual balance updates in chat groups.
                 </p>
               </section>
+            </Reveal>
 
-              {/* Benefits */}
+            {/* Benefits */}
+            <Reveal direction="up" delay={300}>
               <section>
                 <h2 className="text-xl sm:text-2xl font-semibold mb-4" style={{ color: dark ? "#ffffff" : "#0f172a" }}>
                   Key Benefits
@@ -251,10 +256,12 @@ export default function AboutPage() {
                   {benefits.map((benefit, index) => (
                     <div 
                       key={index}
-                      className="p-4 rounded-xl border transition-all duration-300 hover:scale-[1.02]"
-                      style={{ 
-                        background: dark ? "var(--color-dark-card)" : "var(--color-light-card)", 
-                        borderColor: dark ? "var(--color-dark-border)" : "var(--color-light-border)" 
+                      className="p-4 rounded-xl border transition-all duration-300 hover:scale-[1.02] opacity-0 animate-fade-in-up"
+                      style={{
+                        animationDelay: `${0.1 + index * 0.1}s`,
+                        animationFillMode: "forwards",
+                        background: dark ? "var(--color-dark-card)" : "var(--color-light-card)",
+                        borderColor: dark ? "var(--color-dark-border)" : "var(--color-light-border)"
                       }}
                     >
                       <div className="flex items-start gap-3">
@@ -272,9 +279,9 @@ export default function AboutPage() {
                   ))}
                 </div>
               </section>
-            </div>
+            </Reveal>
           </div>
-        </motion.div>
+        </div>
       </div>
     </div>
   );
