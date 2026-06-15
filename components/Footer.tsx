@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Mail, Phone, MessageCircle } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
+import { SiWhatsapp } from "@icons-pack/react-simple-icons";
 
 export default function Footer() {
   const [isDark, setIsDark] = useState(false);
@@ -45,7 +46,8 @@ export default function Footer() {
       href: "mailto:kofundapp@gmail.com?subject=KoFund%20App%20Support&body=Hello%20KoFund%20Support%2C%0A%0AI%20need%20help%20with%3A",
     },
     {
-      icon: <MessageCircle size={16} />,
+       icon: <SiWhatsapp size={16} />,
+
       label: "WhatsApp Support",
       value: "+91 815 787 5032",
       href: "https://wa.me/918157875032?text=Hello%20KoFund%20Support%2C%20I%20need%20help%20with%3A",
@@ -179,7 +181,7 @@ export default function Footer() {
                     className="flex items-center gap-3 text-sm hover:text-primary transition-colors group"
                     style={{ color: isDark ? "#6B7280" : "#64748b" }}
                   >
-                    <span className="transition-transform group-hover:scale-110 text-primary">
+                    <span className="transition-transform group-hover:scale-110">
                       {method.icon}
                     </span>
                     <span>{method.value}</span>
