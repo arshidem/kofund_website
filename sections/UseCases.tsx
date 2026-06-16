@@ -11,7 +11,6 @@ const cases = [
   { icon: Heart, label: "Family Funds" },
   { icon: HandHeart, label: "Charity Collections" },
   { icon: GraduationCap, label: "Student Orgs" },
-  { icon: Church, label: "Mosque Committees" },
   { icon: Users2, label: "Clubs & Societies" },
   { icon: Ticket, label: "Event Planning" },
   { icon: Gift, label: "Gift Collections" },
@@ -66,7 +65,7 @@ export default function UseCases() {
           {/* Row 1 - Moves left to right */}
           <div className="relative mb-6 overflow-hidden">
             <div className="animate-marquee-left flex gap-4">
-              {[...firstRow, ...firstRow].map((item, idx) => (
+              {[...firstRow, ...firstRow, ...firstRow].map((item, idx) => (
                 <div
                   key={`${item.label}-${idx}`}
                   className="flex-shrink-0 w-36 sm:w-40 lg:w-44"
@@ -101,7 +100,7 @@ export default function UseCases() {
           {/* Row 2 - Moves right to left (opposite direction) */}
           <div className="relative overflow-hidden">
             <div className="animate-marquee-right flex gap-4">
-              {[...secondRow, ...secondRow].map((item, idx) => (
+              {[...secondRow, ...secondRow, ...secondRow].map((item, idx) => (
                 <div
                   key={`${item.label}-${idx}`}
                   className="flex-shrink-0 w-36 sm:w-40 lg:w-44"

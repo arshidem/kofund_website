@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import ThemeToggle from "@/components/ThemeToggle";
+import ScrollRestoration from "@/components/ScrollRestoration"; // Add this if you want scroll restoration
 
 const geist = Geist({ 
   variable: "--font-geist", 
@@ -37,6 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ThemeProvider>
           {children}
           <ThemeToggle />
+          <ScrollRestoration />
         </ThemeProvider>
       </body>
     </html>

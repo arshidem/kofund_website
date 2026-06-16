@@ -40,11 +40,12 @@ export default function Features() {
           </div>
         </Reveal>
 
-        {/* Features Grid with staggered Reveal animations */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
-          {features.map((f, i) => (
-            <Reveal key={f.title} delay={i * 100} direction="up">
+        {/* Features Grid with single Reveal animation for the entire grid */}
+        <Reveal direction="up">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+            {features.map((f, i) => (
               <div
+                key={f.title}
                 className="rounded-2xl p-5 border transition-all duration-300 group hover:scale-105"
                 style={{
                   background: dark ? "var(--color-dark-card)" : "var(--color-light-card)",
@@ -72,9 +73,9 @@ export default function Features() {
                   {f.description}
                 </p>
               </div>
-            </Reveal>
-          ))}
-        </div>
+            ))}
+          </div>
+        </Reveal>
       </div>
     </section>
   );
