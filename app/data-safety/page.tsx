@@ -246,13 +246,14 @@ export default function DataSafetyPage() {
           {/* Content */}
           <div className="p-6 sm:p-8 space-y-6">
             {sections.map((section, index) => (
-                <div 
-                  className="p-4 rounded-xl border transition-all duration-300 hover:scale-[1.02]"
-                  style={{ 
-                    background: dark ? "var(--color-dark-card)" : "var(--color-light-card)", 
-                    borderColor: dark ? "var(--color-dark-border)" : "var(--color-light-border)" 
-                  }}
-                >
+    <div 
+      key={section.title}
+      className="p-4 rounded-xl border transition-all duration-300 hover:scale-[1.02]"
+      style={{ 
+        background: dark ? "var(--color-dark-card)" : "var(--color-light-card)", 
+        borderColor: dark ? "var(--color-dark-border)" : "var(--color-light-border)" 
+      }}
+    >
                   <div className="flex items-start gap-3">
                     <div className="text-primary mt-0.5">{section.icon}</div>
                     <div>

@@ -264,11 +264,11 @@ export default function PrivacyPolicyPage() {
 
           {/* Content */}
           <div className="p-6 sm:p-8 space-y-8">
-            {sections.map((section, index) => (
-                <section className="transition-all duration-300 hover:translate-x-1">
-                  <h2 className="text-xl sm:text-2xl font-semibold mb-3" style={{ color: dark ? "#ffffff" : "#0f172a" }}>
-                    {section.title}
-                  </h2>
+           {sections.map((section, index) => (
+    <section key={section.title} className="transition-all duration-300 hover:translate-x-1">
+      <h2 className="text-xl sm:text-2xl font-semibold mb-3" style={{ color: dark ? "#ffffff" : "#0f172a" }}>
+        {section.title}
+      </h2>
                   <p className="leading-relaxed mb-3" style={{ color: dark ? "#9CA3AF" : "#475569" }}>
                     {section.content}
                   </p>
