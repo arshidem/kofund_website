@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { ArrowRight, Download } from "lucide-react";
 import { useEffect, useState } from "react";
-
+import QRCodeImage from "./QRCodeImage";
 export default function Hero() {
   const [dark, setDark] = useState(true);
   const [loaded, setLoaded] = useState(false);
@@ -108,14 +108,7 @@ export default function Hero() {
           <div className="hidden lg:flex flex-col items-center justify-center animate-fade-in animation-delay-200">
             <div className="text-center">
               <div className="w-56 h-56 mx-auto rounded-2xl overflow-hidden shadow-lg bg-white">
-                <img
-                  src={`https://api.qrserver.com/v1/create-qr-code/?size=224x224&data=${encodeURIComponent(
-                    "https://drive.google.com/file/d/1jQEGYyfAZjnt9L8PPqYpANaizGaq0gq0/view?usp=sharing"
-                  )}`}
-                  alt="Download KoFund App"
-                  className="w-full h-full object-contain"
-                  loading="lazy"
-                />
+               <QRCodeImage url="https://drive.google.com/file/d/1jQEGYyfAZjnt9L8PPqYpANaizGaq0gq0/view?usp=sharing" />
               </div>
               <h3 className="font-semibold text-lg mt-4" style={{ color: dark ? "var(--color-dark-text-primary)" : "var(--color-light-text-primary)" }}>
                 Scan QR Code
