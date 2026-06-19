@@ -7,7 +7,6 @@ import Reveal from "@/components/Reveal";
 const roles = [
   { id: "admin", icon: ShieldCheck, label: "Admins", heading: "Take Control of the Ledger", sub: "Spend less time responding to messages and more time running your group.", points: ["Record contributions and manage recurring monthly fees or events in 3 clicks.", "Send automatic push notifications & reminders to members with outstanding dues.", "Generate and share beautiful event summaries in PDF or image format."] },
   { id: "member", icon: Eye, label: "Members", heading: "Track Where Every Cent Goes", sub: "Total transparency at your fingertips. No more guessing the group balance.", points: ["Access public links to view target progress, paid/unpaid statuses, and expenses.", "Get official digital receipts instantly when your contribution is recorded.", "View the live net balance showing contributions minus expense deductions."] },
-  { id: "auditor", icon: ClipboardList, label: "Auditors", heading: "Audit-Ready in Seconds", sub: "Remove administrative hurdles and financial mix-ups completely.", points: ["Export comprehensive PDF summaries and transaction histories instantly.", "Verify transaction logs, receipts, and individual member statuses.", "Eliminate bookkeeping errors with structured community ledgers."] },
 ];
 
 export default function Roles() {

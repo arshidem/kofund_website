@@ -15,7 +15,7 @@ const faqs = [
   { q: "What happens after the free trial?", a: "After 30 days, you'll need to subscribe for ₹25/month to continue using KoFund. You'll receive reminders before your trial ends, and you can cancel anytime." },
   { q: "Can I export financial reports?", a: "Absolutely. KoFund allows you to generate and export comprehensive PDF reports of all transactions, contributions, and expense histories." },
   { q: "How are expenses tracked?", a: "Admins can log expenses in real-time, and the system automatically deducts them from the available balance. Every transaction is recorded and visible to all members." },
-  { q: "Can I set up different roles for members?", a: "Yes! KoFund supports multiple roles including Admin, Member, and Auditor. Each role has specific permissions to maintain security and transparency." },
+  { q: "Can I set up different roles for members?", a: "Yes! KoFund supports multiple roles including Admin and Member. Each role has specific permissions to maintain security and transparency." },
   { q: "What happens if I delete my account?", a: "Deleting your account is permanent. All personal details, community memberships, and individual contribution history will be permanently wiped. Ledger entries made on behalf of the community are preserved, but all identifying member details are permanently decoupled." },
 ];
 

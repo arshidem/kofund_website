@@ -178,9 +178,39 @@ export default function AboutPage() {
           </Link>
 
           {/* Centered Logo */}
-          <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
-            <Logo />
-          </div>
+         {/* Centered Logo / Title swap on scroll */}
+<div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
+  <div className="relative h-8 flex items-center justify-center">
+    {/* Logo - visible at top, fades + slides up on scroll */}
+    <div
+      className="absolute transition-all duration-300 ease-out"
+      style={{
+        opacity: scrolled ? 0 : 1,
+        transform: scrolled ? "translateY(-16px)" : "translateY(0)",
+        pointerEvents: scrolled ? "none" : "auto",
+      }}
+    >
+      <Logo />
+    </div>
+
+    {/* Page title - fades + slides up into place on scroll */}
+    <div
+      className="absolute transition-all duration-300 ease-out whitespace-nowrap"
+      style={{
+        opacity: scrolled ? 1 : 0,
+        transform: scrolled ? "translateY(0)" : "translateY(16px)",
+        pointerEvents: scrolled ? "auto" : "none",
+      }}
+    >
+      <span
+        className="font-semibold text-base"
+        style={{ color: dark ? "#ffffff" : "#0f172a" }}
+      >
+        About KoFund
+      </span>
+    </div>
+  </div>
+</div>
 
           {/* Empty div for balance */}
           <div className="w-16 opacity-0 pointer-events-none" aria-hidden="true" />
